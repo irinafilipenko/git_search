@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:git_search/components/item_card.dart';
 import 'package:git_search/constants.dart';
 import 'package:git_search/screens/favorite/favorite_controller.dart';
 
@@ -34,36 +34,13 @@ class FavoriteBody extends GetView<FaivoriteController> {
                       child: ListView.separated(
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              width: double.infinity,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF2F2F2),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: ListTile(
-                                leading: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.3,
-                                  child: Text(
-                                    controller.favoriteList[index].name,
-                                    style: kItemTextStyle,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                trailing: InkWell(
-                                  onTap: () {
-                                    controller.onChangeFavotite(index);
-                                  },
-                                  child: controller
-                                          .favoriteList[index].isFavorite!
-                                      ? SvgPicture.asset(
-                                          "assets/icons/favorite.svg")
-                                      : SvgPicture.asset(
-                                          "assets/icons/favorite_active.svg"),
-                                ),
-                              ),
+                            return ItemCard(
+                              name: controller.favoriteList[index].name,
+                              favorite:
+                                  controller.favoriteList[index].isFavorite!,
+                              onPressed: () {
+                                controller.onChangeFavotite(index);
+                              },
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {

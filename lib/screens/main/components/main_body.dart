@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:git_search/components/item_card.dart';
 import 'package:git_search/constants.dart';
 import 'package:git_search/screens/main/main_controller.dart';
 
@@ -132,41 +133,14 @@ class MainBody extends GetView<MainController> {
                   child: ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ListTile(
-                            leading: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.3,
-                              child: Text(
-                                controller.getStorageService.listHistorySearch
-                                    .value.items[index].name,
-                                style: kItemTextStyle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            trailing: InkWell(
-                              onTap: () {
-                                controller
-                                    .updateHistoryListFavoriteStatus(index);
-                              },
-                              child: controller
-                                      .getStorageService
-                                      .listHistorySearch
-                                      .value
-                                      .items[index]
-                                      .isFavorite!
-                                  ? SvgPicture.asset(
-                                      "assets/icons/favorite.svg")
-                                  : SvgPicture.asset(
-                                      "assets/icons/favorite_active.svg"),
-                            ),
-                          ),
+                        return ItemCard(
+                          name: controller.getStorageService.listHistorySearch
+                              .value.items[index].name,
+                          favorite: controller.getStorageService
+                              .listHistorySearch.value.items[index].isFavorite!,
+                          onPressed: () {
+                            controller.updateHistoryListFavoriteStatus(index);
+                          },
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
@@ -189,35 +163,13 @@ class MainBody extends GetView<MainController> {
                   child: ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ListTile(
-                            leading: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.3,
-                              child: Text(
-                                controller.data.value.items[index].name,
-                                style: kItemTextStyle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            trailing: InkWell(
-                              onTap: () {
-                                controller.updateSearhListFavoriteStatus(index);
-                              },
-                              child:
-                                  controller.data.value.items[index].isFavorite!
-                                      ? SvgPicture.asset(
-                                          "assets/icons/favorite.svg")
-                                      : SvgPicture.asset(
-                                          "assets/icons/favorite_active.svg"),
-                            ),
-                          ),
+                        return ItemCard(
+                          name: controller.data.value.items[index].name,
+                          favorite:
+                              controller.data.value.items[index].isFavorite!,
+                          onPressed: () {
+                            controller.updateSearhListFavoriteStatus(index);
+                          },
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
