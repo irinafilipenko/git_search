@@ -19,14 +19,17 @@ class FavoriteScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          leading: InkWell(
-            child: SvgPicture.asset(
-              "assets/icons/icon_button.svg",
-              fit: BoxFit.scaleDown,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 13),
+            child: InkWell(
+              child: SvgPicture.asset(
+                "assets/icons/icon_button.svg",
+                fit: BoxFit.scaleDown,
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
-            onTap: () {
-              Navigator.of(context).pop();
-            },
           ),
           title: Text(
             "Favorite repos list",
