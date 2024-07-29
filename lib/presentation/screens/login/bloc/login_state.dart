@@ -1,26 +1,20 @@
-part of 'login_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:git_search/core/bloc_status.dart';
+import 'package:git_search/data/models/login_model.dart';
 
-class LoginState extends Equatable {
-  final BlocStatus status;
-  final LoginModel user;
-  final String errorMessage;
+part 'login_state.freezed.dart';
 
-  const LoginState._({
-    this.status = BlocStatus.initial,
-    this.user = const LoginModel(avatarUrl: '', fullName: "", email: ""), //
-    this.errorMessage = '',
-  });
+@freezed
+class LoginState with _$LoginState {
+  const factory LoginState({
+    @Default(BlocStatus.initial) BlocStatus status,
+    @Default(LoginModel(avatarUrl: '', fullName: "", email: ""))
+    LoginModel user,
+    @Default('') String errorMessage,
+  }) = _LoginState;
 
-  const LoginState.initial() : this._();
-
-  const LoginState.loading() : this._(status: BlocStatus.loading);
-
-  const LoginState.success(LoginModel user)
-      : this._(status: BlocStatus.success, user: user);
-
-  const LoginState.failure(String errorMessage)
-      : this._(status: BlocStatus.failure, errorMessage: errorMessage);
-
-  @override
-  List<Object> get props => [status, user, errorMessage];
+  const factory LoginState.initial() = _Initial;
+  const factory LoginState.loading() = _Loading;
+  const factory LoginState.success(LoginModel user) = _Success;
+  const factory LoginState.failure(String errorMessage) = _Failure;
 }

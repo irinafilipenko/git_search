@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:git_search/presentation/constants.dart';
 import 'package:git_search/presentation/screens/favorite/favorite_screen.dart';
-import 'package:git_search/presentation/screens/main/components/main_body.dart';
+
 import 'main_controller.dart';
 
 class MainScreen extends GetView<MainController> {

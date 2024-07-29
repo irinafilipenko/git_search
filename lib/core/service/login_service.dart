@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-class UserService {
+class LoginService {
   final Dio _dio = Dio();
 
   Future<Response> getUser(String url) async {

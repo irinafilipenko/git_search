@@ -19,12 +19,12 @@ class CustomButton extends StatelessWidget {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: Color(0xFFA0CAFF),
+          color: const Color(0xFFA0CAFF),
           borderRadius: BorderRadius.circular(100),
         ),
         alignment: Alignment.center,
         child: isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 width: 20,
                 height: 20,
                 child: CircularProgressIndicator(
@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF003259),

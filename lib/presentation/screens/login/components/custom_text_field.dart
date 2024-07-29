@@ -31,8 +31,10 @@ class CustomTextField extends StatelessWidget {
         color: isLoading
             ? const Color(0xFF79747E).withOpacity(0.12)
             : isValid
-                ? (focusNode.hasFocus ? Color(0xFF0061A6) : Color(0xFF43474E))
-                : Color(0xFFBA1A1A),
+                ? (focusNode.hasFocus
+                    ? const Color(0xFF0061A6)
+                    : const Color(0xFF43474E))
+                : const Color(0xFFBA1A1A),
       ),
     );
   }
@@ -50,10 +52,10 @@ class CustomTextField extends StatelessWidget {
             }
           },
           child: TextField(
-            style: TextStyle(fontSize: 16, color: Color(0xFF1A1C1E)),
+            style: const TextStyle(fontSize: 16, color: Color(0xFF1A1C1E)),
             cursorColor: isValid || focusNode.hasFocus
-                ? Color(0xFF0061A6)
-                : Color(0xFFBA1A1A),
+                ? const Color(0xFF0061A6)
+                : const Color(0xFFBA1A1A),
             controller: controller,
             // enabled: !isLoading,
             decoration: InputDecoration(
@@ -63,9 +65,9 @@ class CustomTextField extends StatelessWidget {
                     ? const Color(0xFF79747E).withOpacity(0.12)
                     : isValid
                         ? (focusNode.hasFocus
-                            ? Color(0xFF0061A6)
-                            : Color(0xFF43474E))
-                        : Color(0xFFBA1A1A),
+                            ? const Color(0xFF0061A6)
+                            : const Color(0xFF43474E))
+                        : const Color(0xFFBA1A1A),
               ),
               hintText: hintText,
               hintStyle: TextStyle(
@@ -73,7 +75,7 @@ class CustomTextField extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: isLoading
                       ? const Color(0xFF79747E).withOpacity(0.12)
-                      : Color(0xFF43474E)),
+                      : const Color(0xFF43474E)),
               floatingLabelBehavior: FloatingLabelBehavior.always,
               enabledBorder: _getBorder(isValid, false, isLoading, context),
               focusedBorder:
@@ -95,7 +97,7 @@ class CustomTextField extends StatelessWidget {
         if (!isValid)
           Text(
             '$labelText is incorrect',
-            style: TextStyle(
+            style: const TextStyle(
                 fontFamily: "Roboto", fontSize: 12, color: Color(0xFFBA1A1A)),
           ),
       ],
