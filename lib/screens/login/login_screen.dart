@@ -86,7 +86,8 @@ class LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state.status == BlocStatus.success) {
+          print(LoginState);
+          if (state.status == LoginState.success) {
             Timer(const Duration(microseconds: 10), () {
               setState(() {
                 _isLoading = false;
@@ -95,7 +96,7 @@ class LoginScreenState extends State<LoginScreen> {
               // Navigator.of(context).pushReplacement(createRoute());
               Navigator.pushReplacementNamed(context, '/main');
             });
-          } else if (state.status == BlocStatus.failure) {
+          } else if (state.status == LoginState.failure) {
             setState(() {
               _isLoading = false;
               _isEmailValid = true;
