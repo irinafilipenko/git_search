@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:git_search/core/bloc_status.dart';
-import 'package:git_search/data/login_model.dart';
-import 'package:git_search/data/user_repository.dart';
+import 'package:git_search/data/models/login_model.dart';
+import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';

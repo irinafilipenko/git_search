@@ -1,5 +1,5 @@
 import 'package:git_search/core/service/login_service.dart';
-import 'package:git_search/data/login_model.dart';
+import 'package:git_search/data/models/login_model.dart';
 
 class UserRepository {
   final UserService _userService = UserService();

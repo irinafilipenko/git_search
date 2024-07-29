@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/login_screen.dart';
-import 'package:git_search/data/user_repository.dart';
+import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/presentation/screens/main/main_screen.dart';
 import 'package:git_search/core/service/routes.dart';
 import 'core/service/get_storage_service.dart';
