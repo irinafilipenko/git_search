@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:git_search/constants.dart';
-import 'package:git_search/screens/main/main_controller.dart';
+import 'package:git_search/presentation/constants.dart';
+import 'package:git_search/presentation/screens/main/main_controller.dart';
 
 class MainBody extends GetView<MainController> {
   const MainBody({super.key});

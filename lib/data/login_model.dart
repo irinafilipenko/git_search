@@ -3,7 +3,7 @@ class LoginModel {
   final String fullName;
   final String avatarUrl;
 
-  LoginModel(
+  const LoginModel(
       {required this.email, required this.fullName, required this.avatarUrl});
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {

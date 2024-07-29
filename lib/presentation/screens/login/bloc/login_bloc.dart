@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:git_search/core/bloc_status.dart';
-import 'package:git_search/screens/login/login_model.dart';
-import 'package:git_search/screens/login/user_repository.dart';
+import 'package:git_search/data/login_model.dart';
+import 'package:git_search/data/user_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
@@ -25,9 +25,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginState.loading());
     try {
       final user = await userRepository.login(event.email, event.password);
-      emit(LoginState.success(user as List<LoginModel>));
+      print(user);
+      emit(LoginState.success(user));
     } catch (error) {
       emit(const LoginState.failure("Login failed. Please try again."));
     }
   }
 }
+// \ void _onLoginRequested(LoginRequested event, Emitter<AuthState> emit) async {
+//   emit(AuthLoading());
+//   try {
+//     final user = await userRepository.login(event.email, event.password);
+//     emit(AuthAuthenticated(user: user));
+//   } catch (error) {
+//     emit(const AuthError("Login failed. Please try again."));
+//   }
+// }

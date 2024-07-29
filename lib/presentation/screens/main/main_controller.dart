@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:git_search/screens/main/main_model.dart';
-import 'package:git_search/screens/main/main_provider.dart';
-import 'package:git_search/services/get_storage_service.dart';
+import 'package:git_search/presentation/screens/main/main_model.dart';
+import 'package:git_search/presentation/screens/main/main_provider.dart';
+import 'package:git_search/core/service/get_storage_service.dart';
 
 class MainController extends GetxController {
   GetStorageService getStorageService = Get.find();

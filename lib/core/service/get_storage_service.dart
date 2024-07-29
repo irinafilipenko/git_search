@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:git_search/screens/main/main_model.dart';
+import 'package:git_search/presentation/screens/main/main_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetStorageService extends GetxService {

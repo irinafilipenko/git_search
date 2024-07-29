@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:git_search/screens/favorite/components/favorite_body.dart';
-import '../../constants.dart';
+import 'package:git_search/presentation/constants.dart';
+import 'package:git_search/presentation/screens/favorite/components/favorite_body.dart';
 
 class FavoriteScreen extends StatelessWidget {
   static String routeName = '/favorite';

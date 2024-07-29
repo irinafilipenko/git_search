@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/core/bloc_status.dart';
-import 'package:git_search/screens/login/bloc/login_bloc.dart';
-import 'package:git_search/screens/login/components/custom_button.dart';
-import 'package:git_search/screens/login/components/custom_text_field.dart';
+import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
+import 'package:git_search/presentation/screens/login/components/custom_button.dart';
+import 'package:git_search/presentation/screens/login/components/custom_text_field.dart';
 
-import 'package:git_search/screens/login/components/validation.dart';
+import 'package:git_search/presentation/screens/login/components/validation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:git_search/services/get_storage_service.dart';
+import 'package:git_search/core/service/get_storage_service.dart';
 import '../main/main_model.dart';
 
 class FaivoriteController extends GetxController {
