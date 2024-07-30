@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:git_search/data/loading_status.dart';
 
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
@@ -85,9 +86,9 @@ class LoginBodyState extends State<LoginBody> {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        print(state);
+        print(state.status);
 
-        if (state == LoginState.success) {
+        if (state.status == LoadingStatus.success) {
           Timer(const Duration(microseconds: 10), () {
             setState(() {
               _isLoading = false;
@@ -96,7 +97,7 @@ class LoginBodyState extends State<LoginBody> {
             // Navigator.of(context).pushReplacement(createRoute());
             Navigator.pushReplacementNamed(context, '/main');
           });
-        } else if (state == LoginState.failure) {
+        } else if (state.status == LoadingStatus.failure) {
           setState(() {
             _isLoading = false;
             _isEmailValid = true;

@@ -12,9 +12,4 @@ class LoginState with _$LoginState {
     LoginModel user,
     @Default('') String errorMessage,
   }) = _LoginState;
-
-  const factory LoginState.initial() = _Initial;
-  const factory LoginState.loading() = _Loading;
-  const factory LoginState.success(LoginModel user) = _Success;
-  const factory LoginState.failure(String errorMessage) = _Failure;
 }
