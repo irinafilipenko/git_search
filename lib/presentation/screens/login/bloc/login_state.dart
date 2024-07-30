@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:git_search/core/bloc_status.dart';
+import 'package:git_search/data/bloc_status.dart';
 import 'package:git_search/data/models/login_model.dart';
 
 part 'login_state.freezed.dart';
