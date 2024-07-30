@@ -85,52 +85,28 @@ class LoginBodyState extends State<LoginBody> {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        state.when(
-          initial: () {},
-          loading: () {},
-          success: (user) {
-            Timer(const Duration(microseconds: 10), () {
-              setState(() {
-                _isLoading = false;
-              });
-              _resetFields();
-              Navigator.pushReplacementNamed(context, '/main');
-            });
-          },
-          failure: (errorMessage) {
+        print(state);
+
+        if (state == LoginState.success) {
+          Timer(const Duration(microseconds: 10), () {
             setState(() {
               _isLoading = false;
-              _isEmailValid = true;
-              _isPasswordValid = true;
             });
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   CustomSnackBar(message: errorMessage, context: context),
-            // );
-          },
-        );
+            _resetFields();
+            // Navigator.of(context).pushReplacement(createRoute());
+            Navigator.pushReplacementNamed(context, '/main');
+          });
+        } else if (state == LoginState.failure) {
+          setState(() {
+            _isLoading = false;
+            _isEmailValid = true;
+            _isPasswordValid = true;
+          });
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   customSnackBar(message: state.message, context: context),
+          // );
+        }
       },
-      // listener: (context, state) {
-      //   // print(state.status);
-      //   if (state.status == BlocStatus.success) {
-      //     Timer(const Duration(microseconds: 10), () {
-      //       setState(() {
-      //         _isLoading = false;
-      //       });
-      //       _resetFields();
-      //       // Navigator.of(context).pushReplacement(createRoute());
-      //       Navigator.pushReplacementNamed(context, '/main');
-      //     });
-      //   } else if (state.status == BlocStatus.failure) {
-      //     setState(() {
-      //       _isLoading = false;
-      //       _isEmailValid = true;
-      //       _isPasswordValid = true;
-      //     });
-      //     // ScaffoldMessenger.of(context).showSnackBar(
-      //     //   customSnackBar(message: state.message, context: context),
-      //     // );
-      //   }
-      // },
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
