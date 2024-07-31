@@ -88,21 +88,34 @@ class LoginBodyState extends State<LoginBody> {
       listener: (context, state) {
         print(state.status);
 
-        if (state.status == LoadingStatus.success) {
-          Timer(const Duration(microseconds: 10), () {
+        switch (state.status) {
+          case LoadingStatus.success:
+            Timer(const Duration(microseconds: 10), () {
+              setState(() {
+                _isLoading = false;
+              });
+              _resetFields();
+              Navigator.pushReplacementNamed(context, '/main');
+            });
+            break;
+          case LoadingStatus.failure:
             setState(() {
               _isLoading = false;
+              _isEmailValid = true;
+              _isPasswordValid = true;
             });
-            _resetFields();
-            // Navigator.of(context).pushReplacement(createRoute());
-            Navigator.pushReplacementNamed(context, '/main');
-          });
-        } else if (state.status == LoadingStatus.failure) {
-          setState(() {
-            _isLoading = false;
-            _isEmailValid = true;
-            _isPasswordValid = true;
-          });
+
+            break;
+          case LoadingStatus.loading:
+            setState(() {
+              _isLoading = true;
+            });
+            break;
+          case LoadingStatus.initial:
+            setState(() {
+              _isLoading = true;
+            });
+            break;
           // ScaffoldMessenger.of(context).showSnackBar(
           //   customSnackBar(message: state.message, context: context),
           // );

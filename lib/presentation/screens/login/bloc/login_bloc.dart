@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
-// import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
 
 part 'login_event.dart';
 

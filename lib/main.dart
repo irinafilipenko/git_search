@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:git_search/locator_service.dart' as di;
 
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/login_screen.dart';
-import 'package:git_search/data/repositories/user_repository.dart';
+
 import 'package:git_search/presentation/screens/main/main_screen.dart';
 
-void main() {
-  final userRepository = UserRepository();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
 
-  runApp(MyApp(
-    userRepository: userRepository,
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final UserRepository userRepository;
-
   const MyApp({
     super.key,
-    required this.userRepository,
   });
 
   @override
@@ -27,7 +24,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(userRepository: userRepository),
+          create: (context) => di.sl<LoginBloc>(),
+          // LoginBloc(userRepository: userRepository),
         ),
       ],
       child: MaterialApp(
