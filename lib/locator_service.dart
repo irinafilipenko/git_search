@@ -7,9 +7,9 @@ import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 final sl = GetIt.instance;
 
 init() {
-  sl.registerFactory(() => LoginBloc(userRepository: sl<UserRepository>()));
   sl.registerLazySingleton<UserRepository>(() => UserRepository());
-  // sl.registerLazySingleton(() => LoginService());
+  sl.registerLazySingleton<Dio>(() => Dio());
+  sl.registerFactory(() => LoginBloc(userRepository: sl<UserRepository>()));
   sl.registerLazySingleton<LoginService>(
     () => LoginService(sl<Dio>()),
   );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:git_search/presentation/constants.dart';
+import 'package:git_search/presentation/constants/constants.dart';
 import 'package:git_search/presentation/screens/favorite/favorite_controller.dart';
 
 class FavoriteBody extends GetView<FaivoriteController> {

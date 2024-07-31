@@ -88,6 +88,7 @@ class LoginBodyState extends State<LoginBody> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         print(state.status);
+        print(state.user);
 
         switch (state.status) {
           case LoadingStatus.success:

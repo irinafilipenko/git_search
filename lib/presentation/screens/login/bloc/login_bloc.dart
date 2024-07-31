@@ -30,19 +30,19 @@ part 'login_event.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
 
-  LoginBloc({required this.userRepository})
-      : super(const LoginState(status: LoadingStatus.initial)) {
+  LoginBloc({required this.userRepository}) : super(LoginState()) {
     on<LoginRequested>(_onLoginRequested);
   }
 
   void _onLoginRequested(LoginRequested event, Emitter<LoginState> emit) async {
-    emit(const LoginState(status: LoadingStatus.loading));
+    emit(state.copyWith(status: LoadingStatus.loading));
     try {
       final user = await userRepository.login(event.email, event.password);
-      emit(LoginState(status: LoadingStatus.success, user: user));
+      print(user);
+      emit(state.copyWith(status: LoadingStatus.success, user: user));
     } catch (error) {
-      emit(const LoginState(
-          status: LoadingStatus.success,
+      emit(state.copyWith(
+          status: LoadingStatus.failure,
           errorMessage: "Login failed. Please try again."));
     }
   }

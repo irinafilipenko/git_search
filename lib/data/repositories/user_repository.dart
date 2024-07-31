@@ -22,6 +22,7 @@ class UserRepository {
 
   Future<LoginModel> login(String email, String password) async {
     final response = await _userService.getUser("api/");
+    print(response);
     return response;
   }
 }
