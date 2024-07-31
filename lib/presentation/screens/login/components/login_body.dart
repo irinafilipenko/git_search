@@ -7,6 +7,7 @@ import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
 import 'package:git_search/presentation/screens/login/components/custom_button.dart';
+import 'package:git_search/presentation/screens/login/components/custom_snack_bar.dart';
 import 'package:git_search/presentation/screens/login/components/custom_text_field.dart';
 import 'package:git_search/presentation/screens/login/components/validation.dart';
 
@@ -115,10 +116,10 @@ class LoginBodyState extends State<LoginBody> {
             setState(() {
               _isLoading = true;
             });
-            break;
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   customSnackBar(message: state.message, context: context),
-          // );
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              customSnackBar(message: state.errorMessage, context: context),
+            );
         }
       },
       child: Padding(
