@@ -11,10 +11,46 @@ class LoginModel with _$LoginModel {
     required String avatarUrl,
   }) = _LoginModel;
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) =>
-      _$LoginModelFromJson(json);
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
+    return LoginModel(
+      email: json['email'] as String,
+      fullName:
+          '${(json['name'] as Map<String, dynamic>)['first']} ${(json['name'] as Map<String, dynamic>)['last']}',
+      avatarUrl: (json['picture'] as Map<String, dynamic>)['medium'] as String,
+    );
+  }
 }
 
+@freezed
+class Name with _$Name {
+  const factory Name({
+    required String first,
+    required String last,
+  }) = _Name;
+
+  factory Name.fromJson(Map<String, dynamic> json) => _$NameFromJson(json);
+}
+
+@freezed
+class Picture with _$Picture {
+  const factory Picture({
+    required String large,
+    required String medium,
+    required String thumbnail,
+  }) = _Picture;
+
+  factory Picture.fromJson(Map<String, dynamic> json) =>
+      _$PictureFromJson(json);
+}
+
+@freezed
+class Login with _$Login {
+  const factory Login({
+    required String username,
+  }) = _Login;
+
+  factory Login.fromJson(Map<String, dynamic> json) => _$LoginFromJson(json);
+}
 // class LoginModel {
 //   final String email;
 //   final String fullName;

@@ -10,6 +10,7 @@ class UserRepository {
   Future<LoginModel> login(String email, String password) async {
     print("login");
     final response = await _userService.getUser();
+    print(response);
 
     return response;
   }
