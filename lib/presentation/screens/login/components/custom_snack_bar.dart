@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-customSnackBar({required String message, required context}) async {
+SnackBar customSnackBar({required String message, required context}) {
   return SnackBar(
     content: SizedBox(
       height: 20,

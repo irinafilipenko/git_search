@@ -100,27 +100,29 @@ class LoginBodyState extends State<LoginBody> {
               Navigator.pushReplacementNamed(context, '/main');
             });
             break;
+
           case LoadingStatus.failure:
             setState(() {
               _isLoading = false;
               _isEmailValid = true;
               _isPasswordValid = true;
             });
-
+            ScaffoldMessenger.of(context).showSnackBar(
+              customSnackBar(message: state.errorMessage, context: context),
+            );
             break;
+
           case LoadingStatus.loading:
             setState(() {
               _isLoading = true;
             });
             break;
+
           case LoadingStatus.initial:
             setState(() {
               _isLoading = true;
             });
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              customSnackBar(message: state.errorMessage, context: context),
-            );
+            break;
         }
       },
       child: Padding(
