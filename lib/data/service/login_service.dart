@@ -10,9 +10,17 @@ part 'login_service.g.dart';
 abstract class LoginService {
   factory LoginService(Dio dio, {String baseUrl}) = _LoginService;
 
-  @GET("/user")
-  Future<LoginModel> getUser(@Query("url") String url);
+  @GET("/api/")
+  Future<LoginModel> getUser();
 }
+
+// @RestApi(baseUrl: kBaseUrl)
+// abstract class LoginService {
+//   factory LoginService(Dio dio, {String baseUrl}) = _LoginService;
+//
+//   @GET("/user")
+//   Future<LoginModel> getUser(@Query("url") String url);
+// }
 
 // import 'package:dio/dio.dart';
 //

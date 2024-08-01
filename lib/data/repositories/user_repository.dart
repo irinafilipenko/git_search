@@ -2,6 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:git_search/data/service/login_service.dart';
 import 'package:git_search/data/models/login_model.dart';
 
+class UserRepository {
+  final LoginService _userService;
+
+  UserRepository(Dio dio) : _userService = LoginService(dio);
+
+  Future<LoginModel> login(String email, String password) async {
+    print("login");
+
+    final response = await _userService.getUser();
+
+    return response;
+  }
+}
+
 // class UserRepository {
 //   final LoginService _userService = LoginService();
 //
@@ -12,17 +26,17 @@ import 'package:git_search/data/models/login_model.dart';
 //
 // }
 
-class UserRepository {
-  final Dio _dio = Dio();
-  late final LoginService _userService;
-
-  UserRepository() {
-    _userService = LoginService(_dio);
-  }
-
-  Future<LoginModel> login(String email, String password) async {
-    final response = await _userService.getUser("api/");
-    print(response);
-    return response;
-  }
-}
+// class UserRepository {
+//   final Dio _dio = Dio();
+//   late final LoginService _userService;
+//
+//   UserRepository() {
+//     _userService = LoginService(_dio);
+//   }
+//
+//   Future<LoginModel> login(String email, String password) async {
+//     final response = await _userService.getUser("api/");
+//
+//     return response;
+//   }
+// }

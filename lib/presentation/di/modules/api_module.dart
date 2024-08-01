@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:git_search/data/service/login_service.dart';
+import 'package:git_search/presentation/constants/constants.dart';
 import 'package:git_search/presentation/di/modules/module.dart';
 
 import '../../../main.dart';
@@ -17,6 +18,7 @@ class ApiModule implements Module {
     final dio = Dio();
     dio.options.headers["content-type"] = "application/json";
     dio.options.headers["Accept"] = "application/json";
+    dio.options.baseUrl = kBaseUrl;
     dio.options.connectTimeout = Duration(milliseconds: 30000);
     dio.options.receiveTimeout = Duration(milliseconds: 30000);
     // dio.options.headers["Inner-Token"] = AppConstants.innerToken;
@@ -27,7 +29,7 @@ class ApiModule implements Module {
     // dio.interceptors.add(InterceptorsWrapper(
     //     onError: (dioError, handler) => _errorInterceptor(dioError)));
     // dio.options.headers['content-language'] = locale?.languageCode;
-    // sl.registerLazySingleton<Dio>(() => dio);
+    sl.registerLazySingleton<Dio>(() => dio);
   }
 
   // _errorInterceptor(DioError dioError) async {

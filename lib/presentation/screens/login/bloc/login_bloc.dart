@@ -35,10 +35,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   void _onLoginRequested(LoginRequested event, Emitter<LoginState> emit) async {
+    print(LoginState);
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
+      print(event.password);
       final user = await userRepository.login(event.email, event.password);
-      print(user);
+
       emit(state.copyWith(status: LoadingStatus.success, user: user));
     } catch (error) {
       emit(state.copyWith(
