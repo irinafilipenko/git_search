@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/presentation/di/injector.dart';
-import 'package:git_search/presentation/di/modules/api_module.dart';
+import 'package:git_search/presentation/di/modules/login_service_module.dart';
+import 'package:git_search/presentation/di/modules/bloc_module.dart';
 import 'package:git_search/presentation/di/modules/repository_module.dart';
 
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
@@ -15,7 +16,8 @@ final sl = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Injector.instance.inject([ApiModule(), RepositoryModule()]);
+  Injector.instance
+      .inject([LoginServiceModule(), RepositoryModule(), BlocModule()]);
 
   runApp(const MyApp());
 }

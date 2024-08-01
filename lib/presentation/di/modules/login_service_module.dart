@@ -6,7 +6,7 @@ import 'package:git_search/presentation/di/modules/module.dart';
 
 import '../../../main.dart';
 
-class ApiModule implements Module {
+class LoginServiceModule implements Module {
   @override
   void dependency() {
     _initDio();
