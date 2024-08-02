@@ -32,8 +32,8 @@ class CustomTextField extends StatelessWidget {
         color: isLoading
             ? const Color(0xFF79747E).withOpacity(0.12)
             : isValid
-                ? (focusNode.hasFocus
-                    ? const Color(0xFF0061A6)
+                ? (isFocused
+                    ? const Color(0xFF43474E)
                     : const Color(0xFF43474E))
                 : const Color(0xFFBA1A1A),
       ),
@@ -50,15 +50,16 @@ class CustomTextField extends StatelessWidget {
           onFocusChange: (hasFocus) {
             if (!hasFocus && !isLoading) {
               onValidate(controller.text);
+            } else {
+              onChanged(controller.text);
             }
           },
           child: TextField(
             style: const TextStyle(fontSize: 16, color: Color(0xFF1A1C1E)),
             cursorColor: isValid || focusNode.hasFocus
-                ? const Color(0xFF0061A6)
+                ? const Color(0xFF43474E)
                 : const Color(0xFFBA1A1A),
             controller: controller,
-            // enabled: !isLoading,
             decoration: InputDecoration(
               labelText: labelText,
               labelStyle: TextStyle(
@@ -66,7 +67,7 @@ class CustomTextField extends StatelessWidget {
                     ? const Color(0xFF79747E).withOpacity(0.12)
                     : isValid
                         ? (focusNode.hasFocus
-                            ? const Color(0xFF0061A6)
+                            ? const Color(0xFF43474E)
                             : const Color(0xFF43474E))
                         : const Color(0xFFBA1A1A),
               ),
@@ -82,11 +83,7 @@ class CustomTextField extends StatelessWidget {
               focusedBorder:
                   _getBorder(isValid, focusNode.hasFocus, isLoading, context),
               errorBorder: _getBorder(false, false, isLoading, context),
-              // errorStyle: TextStyle(
-              //     color: isValid ? customColors!.primary : customColors!.error),
               focusedErrorBorder: _getBorder(false, true, isLoading, context),
-              // fillColor: Colors.grey.shade200,
-              // filled: isLoading,
             ),
             obscureText: isObscure,
             onChanged: (value) {
@@ -97,7 +94,7 @@ class CustomTextField extends StatelessWidget {
         const SizedBox(height: 5),
         if (!isValid)
           Text(
-            labelText + AppStrings.isIncorrectText,
+            '$labelText ${AppStrings.isIncorrectText}',
             style: const TextStyle(
                 fontFamily: "Roboto", fontSize: 12, color: Color(0xFFBA1A1A)),
           ),

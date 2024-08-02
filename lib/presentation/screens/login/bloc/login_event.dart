@@ -8,6 +8,18 @@ class ChangeEmailEvent extends LoginEvent {
   ChangeEmailEvent({required this.email});
 }
 
+class ValidateEmailEvent extends LoginEvent {
+  final String email;
+
+  ValidateEmailEvent({required this.email});
+}
+
+class ValidatePasswordEvent extends LoginEvent {
+  final String password;
+
+  ValidatePasswordEvent({required this.password});
+}
+
 class ChangePasswordEvent extends LoginEvent {
   final String password;
 

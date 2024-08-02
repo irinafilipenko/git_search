@@ -15,17 +15,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<ChangeEmailEvent>(_onChangeEmail);
     on<ChangePasswordEvent>(_onChangePassword);
     on<ResetFieldsEvent>(_onResetFields);
+    on<ValidateEmailEvent>(_onValidateEmail);
+    on<ValidatePasswordEvent>(_onValidatePassword);
   }
 
   void _onChangeEmail(ChangeEmailEvent event, Emitter<LoginState> emit) {
-    emit(state.copyWith(
-        email: event.email, isEmailValid: _validateEmail(event.email)));
+    emit(state.copyWith(email: event.email, isEmailValid: true));
   }
 
   void _onChangePassword(ChangePasswordEvent event, Emitter<LoginState> emit) {
-    emit(state.copyWith(
-        password: event.password,
-        isPasswordValid: _validatePassword(event.password)));
+    emit(state.copyWith(password: event.password, isPasswordValid: true));
+  }
+
+  void _onValidateEmail(ValidateEmailEvent event, Emitter<LoginState> emit) {
+    emit(state.copyWith(isEmailValid: _validateEmail(event.email)));
+  }
+
+  void _onValidatePassword(
+      ValidatePasswordEvent event, Emitter<LoginState> emit) {
+    emit(state.copyWith(isPasswordValid: _validatePassword(event.password)));
   }
 
   void _onResetFields(ResetFieldsEvent event, Emitter<LoginState> emit) {
@@ -55,8 +63,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(status: LoadingStatus.success, user: user));
     } catch (error) {
       emit(state.copyWith(
-          status: LoadingStatus.failure,
-          errorMessage: AppStrings.loginFailedText));
+        status: LoadingStatus.failure,
+        errorMessage: AppStrings.loginFailedText,
+      ));
     }
   }
 

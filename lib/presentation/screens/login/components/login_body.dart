@@ -105,10 +105,11 @@ class LoginBodyState extends State<LoginBody> {
               isValid: context.watch<LoginBloc>().state.isEmailValid,
               isLoading: isLoading,
               onChanged: (value) {
+                print(_emailFocusNode.hasFocus);
                 context.read<LoginBloc>().add(ChangeEmailEvent(email: value));
               },
               onValidate: (value) {
-                context.read<LoginBloc>().add(ChangeEmailEvent(email: value));
+                context.read<LoginBloc>().add(ValidateEmailEvent(email: value));
               },
             ),
             const SizedBox(height: 36),
@@ -127,7 +128,7 @@ class LoginBodyState extends State<LoginBody> {
               onValidate: (value) {
                 context
                     .read<LoginBloc>()
-                    .add(ChangePasswordEvent(password: value));
+                    .add(ValidatePasswordEvent(password: value));
               },
               isObscure: true,
             ),
