@@ -8,8 +8,11 @@ part 'login_state.freezed.dart';
 class LoginState with _$LoginState {
   const factory LoginState({
     @Default(LoadingStatus.initial) LoadingStatus status,
-    @Default(LoginModel(avatarUrl: '', fullName: "", email: ""))
-    LoginModel user,
-    @Default('') String errorMessage,
+    LoginModel? user,
+    String? errorMessage,
+    String? email,
+    String? password,
+    @Default(true) bool isPasswordValid,
+    @Default(true) bool isEmailValid,
   }) = _LoginState;
 }

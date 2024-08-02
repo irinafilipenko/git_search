@@ -1,28 +1,38 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'login_model.freezed.dart';
+
 part 'login_model.g.dart';
 
 @freezed
+class LoginResponse with _$LoginResponse {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory LoginResponse({
+    required List<LoginModel> results,
+  }) = _LoginResponse;
+
+  factory LoginResponse.fromJson(Map<String, Object?> json) =>
+      _$LoginResponseFromJson(json);
+}
+
+@freezed
 class LoginModel with _$LoginModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LoginModel({
     required String email,
-    required String fullName,
-    required String avatarUrl,
+    required Name name,
+    required Picture picture,
   }) = _LoginModel;
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) {
-    return LoginModel(
-      email: json['email'] as String,
-      fullName:
-          '${(json['name'] as Map<String, dynamic>)['first']} ${(json['name'] as Map<String, dynamic>)['last']}',
-      avatarUrl: (json['picture'] as Map<String, dynamic>)['medium'] as String,
-    );
-  }
+  factory LoginModel.fromJson(Map<String, Object?> json) =>
+      _$LoginModelFromJson(json);
 }
 
 @freezed
 class Name with _$Name {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Name({
     required String first,
     required String last,
@@ -33,6 +43,7 @@ class Name with _$Name {
 
 @freezed
 class Picture with _$Picture {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Picture({
     required String large,
     required String medium,
@@ -43,14 +54,14 @@ class Picture with _$Picture {
       _$PictureFromJson(json);
 }
 
-@freezed
-class Login with _$Login {
-  const factory Login({
-    required String username,
-  }) = _Login;
-
-  factory Login.fromJson(Map<String, dynamic> json) => _$LoginFromJson(json);
-}
+// @freezed
+// class Login with _$Login {
+//   const factory Login({
+//     required String username,
+//   }) = _Login;
+//
+//   factory Login.fromJson(Map<String, dynamic> json) => _$LoginFromJson(json);
+// }
 // class LoginModel {
 //   final String email;
 //   final String fullName;

@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
 import 'package:git_search/presentation/screens/login/components/custom_button.dart';
 import 'package:git_search/presentation/screens/login/components/custom_snack_bar.dart';
 import 'package:git_search/presentation/screens/login/components/custom_text_field.dart';
-import 'package:git_search/presentation/screens/login/components/validation.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -25,26 +25,6 @@ class LoginBodyState extends State<LoginBody> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
-  bool _isEmailValid = true;
-  bool _isPasswordValid = true;
-  bool _isLoading = false;
-
-  void _validateEmail(String email) {
-    if (!_isLoading) {
-      setState(() {
-        _isEmailValid = Validation.validateEmail(email);
-      });
-    }
-  }
-
-  void _validatePassword(String password) {
-    if (!_isLoading) {
-      setState(() {
-        _isPasswordValid = Validation.validatePassword(password);
-      });
-    }
-  }
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -57,71 +37,52 @@ class LoginBodyState extends State<LoginBody> {
   void _handleLogin() {
     final email = _emailController.text;
     final password = _passwordController.text;
-    _validateEmail(email);
-    _validatePassword(password);
-    if (_isEmailValid && _isPasswordValid) {
-      setState(() {
-        _isLoading = true;
-        _isEmailValid = true;
-        _isPasswordValid = true;
-      });
-      _resetFields(); // Clear the text fields immediately
-      FocusScope.of(context).unfocus(); // Remove focus from all fields
 
-      context
-          .read<LoginBloc>()
-          .add(LoginRequested(email: email, password: password));
-    }
+    context
+        .read<LoginBloc>()
+        .add(LoginRequestedEvent(email: email, password: password));
   }
 
   void _resetFields() {
     _emailController.clear();
     _passwordController.clear();
-    setState(() {
-      _isEmailValid = true;
-      _isPasswordValid = true;
-    });
+
+    context
+        .read<LoginBloc>()
+        .add(ResetFieldsEvent(isEmailValid: true, isPasswordlValid: true));
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = context.select((LoginBloc bloc) {
+      return bloc.state.status == LoadingStatus.loading;
+    });
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        print(state.status);
-        // print(state.user);
-
         switch (state.status) {
           case LoadingStatus.success:
             Timer(const Duration(microseconds: 10), () {
-              setState(() {
-                _isLoading = false;
-              });
               _resetFields();
               Navigator.pushReplacementNamed(context, '/main');
             });
             break;
 
           case LoadingStatus.failure:
-            setState(() {
-              _isLoading = false;
-              _isEmailValid = true;
-              _isPasswordValid = true;
-            });
-            ScaffoldMessenger.of(context).showSnackBar(
-              customSnackBar(message: state.errorMessage, context: context),
-            );
+            context.read<LoginBloc>().add(
+                ResetFieldsEvent(isEmailValid: true, isPasswordlValid: true));
+
+            if (state.errorMessage != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                customSnackBar(message: state.errorMessage!, context: context),
+              );
+            }
             break;
 
           case LoadingStatus.loading:
-            setState(() {
-              _isLoading = true;
-            });
             break;
 
           case LoadingStatus.initial:
-            setState(() {
-              _isLoading = true;
-            });
             break;
         }
       },
@@ -130,7 +91,7 @@ class LoginBodyState extends State<LoginBody> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Sign in',
+            const Text(AppStrings.signInText,
                 style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w400,
@@ -139,37 +100,41 @@ class LoginBodyState extends State<LoginBody> {
             CustomTextField(
               controller: _emailController,
               focusNode: _emailFocusNode,
-              labelText: 'Email',
-              hintText: 'Enter your email',
-              isValid: _isEmailValid,
-              isLoading: _isLoading,
+              labelText: AppStrings.emailLabelText,
+              hintText: AppStrings.emailHintText,
+              isValid: context.watch<LoginBloc>().state.isEmailValid,
+              isLoading: isLoading,
               onChanged: (value) {
-                setState(() {
-                  _isEmailValid = true;
-                });
+                context.read<LoginBloc>().add(ChangeEmailEvent(email: value));
               },
-              onValidate: _validateEmail,
+              onValidate: (value) {
+                context.read<LoginBloc>().add(ChangeEmailEvent(email: value));
+              },
             ),
             const SizedBox(height: 36),
             CustomTextField(
               controller: _passwordController,
               focusNode: _passwordFocusNode,
-              labelText: 'Password',
-              hintText: 'Enter your password',
-              isValid: _isPasswordValid,
-              isLoading: _isLoading,
+              labelText: AppStrings.passwordLabelText,
+              hintText: AppStrings.passwordHintText,
+              isValid: context.watch<LoginBloc>().state.isPasswordValid,
+              isLoading: isLoading,
               onChanged: (value) {
-                setState(() {
-                  _isPasswordValid = true;
-                });
+                context
+                    .read<LoginBloc>()
+                    .add(ChangePasswordEvent(password: value));
               },
-              onValidate: _validatePassword,
+              onValidate: (value) {
+                context
+                    .read<LoginBloc>()
+                    .add(ChangePasswordEvent(password: value));
+              },
               isObscure: true,
             ),
             const SizedBox(height: 40),
             CustomButton(
-              text: 'Log in',
-              isLoading: _isLoading,
+              text: AppStrings.logInText,
+              isLoading: isLoading,
               onPressed: _handleLogin,
             ),
             const SizedBox(height: 20),

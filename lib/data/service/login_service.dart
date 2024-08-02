@@ -11,7 +11,7 @@ abstract class LoginService {
   factory LoginService(Dio dio, {String baseUrl}) = _LoginService;
 
   @GET("/api/")
-  Future<LoginModel> getUser();
+  Future<LoginResponse> getUser();
 }
 
 // @RestApi(baseUrl: kBaseUrl)

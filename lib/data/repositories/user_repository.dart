@@ -12,7 +12,7 @@ class UserRepository {
     final response = await _userService.getUser();
     print(response);
 
-    return response;
+    return response.results.first;
   }
 }
 
