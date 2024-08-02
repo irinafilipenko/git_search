@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 
 import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
 
 part 'login_event.dart';
@@ -10,7 +10,7 @@ part 'login_event.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepository userRepository;
 
-  LoginBloc({required this.userRepository}) : super(LoginState()) {
+  LoginBloc({required this.userRepository}) : super(const LoginState()) {
     on<LoginRequestedEvent>(_onLoginRequested);
     on<ChangeEmailEvent>(_onChangeEmail);
     on<ChangePasswordEvent>(_onChangePassword);
@@ -44,7 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         status: LoadingStatus.failure,
         isEmailValid: isEmailValid,
         isPasswordValid: isPasswordValid,
-        errorMessage: "Invalid email or password.",
+        errorMessage: AppStrings.invalidText,
       ));
       return;
     }
@@ -56,7 +56,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (error) {
       emit(state.copyWith(
           status: LoadingStatus.failure,
-          errorMessage: "Login failed. Please try again."));
+          errorMessage: AppStrings.loginFailedText));
     }
   }
 

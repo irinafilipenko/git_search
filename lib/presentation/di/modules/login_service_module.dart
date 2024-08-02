@@ -19,8 +19,8 @@ class LoginServiceModule implements Module {
     dio.options.headers["content-type"] = "application/json";
     dio.options.headers["Accept"] = "application/json";
     dio.options.baseUrl = kBaseUrl;
-    dio.options.connectTimeout = Duration(milliseconds: 30000);
-    dio.options.receiveTimeout = Duration(milliseconds: 30000);
+    dio.options.connectTimeout = const Duration(milliseconds: 30000);
+    dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     // dio.options.headers["Inner-Token"] = AppConstants.innerToken;
     // dio.options.sendTimeout = 30000;
     // dio.interceptors.add(LogInterceptor(

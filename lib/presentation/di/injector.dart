@@ -11,6 +11,8 @@ class Injector {
   Injector._();
 
   void inject(List<Module> modules) {
-    modules.forEach((m) => m.dependency());
+    for (var m in modules) {
+      m.dependency();
+    }
   }
 }

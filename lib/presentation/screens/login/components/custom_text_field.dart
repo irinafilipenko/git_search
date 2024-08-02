@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -96,7 +97,7 @@ class CustomTextField extends StatelessWidget {
         const SizedBox(height: 5),
         if (!isValid)
           Text(
-            '$labelText is incorrect',
+            labelText + AppStrings.isIncorrectText,
             style: const TextStyle(
                 fontFamily: "Roboto", fontSize: 12, color: Color(0xFFBA1A1A)),
           ),
