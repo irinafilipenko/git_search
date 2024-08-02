@@ -11,9 +11,7 @@ SnackBar customSnackBar({required String message, required context}) {
               child: Text(
             message,
             style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFFF1F0F4)),
+                fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
           )),
           GestureDetector(
             onTap: () {

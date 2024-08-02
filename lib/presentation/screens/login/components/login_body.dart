@@ -38,9 +38,21 @@ class LoginBodyState extends State<LoginBody> {
     final email = _emailController.text;
     final password = _passwordController.text;
 
-    context
-        .read<LoginBloc>()
-        .add(LoginRequestedEvent(email: email, password: password));
+    // Remove focus from all text fields
+    _emailFocusNode.unfocus();
+    _passwordFocusNode.unfocus();
+
+    // Trigger validation
+    context.read<LoginBloc>().add(ValidateEmailEvent(email: email));
+    context.read<LoginBloc>().add(ValidatePasswordEvent(password: password));
+
+    // Add login request event if fields are valid
+    if (context.read<LoginBloc>().state.isEmailValid &&
+        context.read<LoginBloc>().state.isPasswordValid) {
+      context
+          .read<LoginBloc>()
+          .add(LoginRequestedEvent(email: email, password: password));
+    }
   }
 
   void _resetFields() {
@@ -105,7 +117,6 @@ class LoginBodyState extends State<LoginBody> {
               isValid: context.watch<LoginBloc>().state.isEmailValid,
               isLoading: isLoading,
               onChanged: (value) {
-                print(_emailFocusNode.hasFocus);
                 context.read<LoginBloc>().add(ChangeEmailEvent(email: value));
               },
               onValidate: (value) {
