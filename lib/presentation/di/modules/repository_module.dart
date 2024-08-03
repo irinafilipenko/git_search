@@ -9,9 +9,45 @@ import '../../../main.dart';
 class RepositoryModule implements Module {
   @override
   void dependency() {
-    sl.registerLazySingleton<LocalDataStorage>(
-        () => LocalDataStorageImpl(sharedPreferences: sl<SharedPreferences>()));
-    sl.registerLazySingleton<UserRepository>(
-        () => UserRepository(sl<LoginService>(), sl<LocalDataStorage>()));
+    sl.registerSingletonAsync<LocalDataStorage>(
+      () async {
+        final sharedPreferences = await SharedPreferences.getInstance();
+        return LocalDataStorageImpl(sharedPreferences: sharedPreferences);
+      },
+    );
+    sl.registerSingletonAsync<UserRepository>(
+      () async {
+        await sl.isReady<LocalDataStorage>();
+        return UserRepository(sl<LoginService>(), sl<LocalDataStorage>());
+      },
+    );
   }
 }
+
+// class RepositoryModule implements Module {
+//   @override
+//   Future<void> dependency() async {
+//     sl.registerSingletonAsync<SharedPreferences>(
+//       () async => await SharedPreferences.getInstance(),
+//       signalsReady: true,
+//     );
+//
+//     sl.registerSingletonAsync<LocalDataStorage>(
+//       () async {
+//         final sharedPreferences = await sl.getAsync<SharedPreferences>();
+//         return LocalDataStorageImpl(sharedPreferences: sharedPreferences);
+//       },
+//       dependsOn: [SharedPreferences],
+//       signalsReady: true,
+//     );
+//
+//     sl.registerSingletonAsync<UserRepository>(
+//       () async {
+//         await sl.isReady<LocalDataStorage>();
+//         return UserRepository(sl<LoginService>(), sl<LocalDataStorage>());
+//       },
+//       dependsOn: [LocalDataStorage],
+//       signalsReady: true,
+//     );
+//   }
+// }

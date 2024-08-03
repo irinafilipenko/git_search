@@ -11,21 +11,18 @@ import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/login_screen.dart';
 
 import 'package:git_search/presentation/screens/main/main_screen.dart';
-
-import 'presentation/di/modules/shared_preferences_module.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Injector.instance.inject(
-    [
-      SharedPreferencesModule(),
-      LoginServiceModule(),
-      RepositoryModule(),
-      BlocModule()
-    ],
+    [LoginServiceModule(), RepositoryModule(), BlocModule()],
   );
+
+  await sl.allReady();
 
   runApp(const MyApp());
 }

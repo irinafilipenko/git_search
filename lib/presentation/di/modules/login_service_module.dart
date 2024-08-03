@@ -8,7 +8,7 @@ import '../../../main.dart';
 
 class LoginServiceModule implements Module {
   @override
-  void dependency() {
+  Future<void> dependency() async {
     _initDio();
     Dio dio = sl.get<Dio>();
     sl.registerLazySingleton<LoginService>(() => LoginService(dio));

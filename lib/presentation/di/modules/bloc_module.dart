@@ -10,3 +10,10 @@ class BlocModule implements Module {
     sl.registerFactory(() => LoginBloc(userRepository: sl<UserRepository>()));
   }
 }
+// class BlocModule implements Module {
+//   @override
+//   Future<void> dependency() async {
+//     await sl.isReady<UserRepository>();
+//     sl.registerFactory(() => LoginBloc(userRepository: sl<UserRepository>()));
+//   }
+// }
