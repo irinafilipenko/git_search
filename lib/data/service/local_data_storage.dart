@@ -8,10 +8,9 @@ abstract class LocalDataStorage {
   Future<void> userToCache(LoginModel user);
 }
 
-const CACHE_USER = 'CACHE_USER';
-
 class LocalDataStorageImpl implements LocalDataStorage {
   final SharedPreferences sharedPreferences;
+  static const CACHE_USER = 'CACHE_USER';
 
   LocalDataStorageImpl({required this.sharedPreferences});
 
@@ -22,7 +21,7 @@ class LocalDataStorageImpl implements LocalDataStorage {
       print('Get User from Cache: $jsonUser');
       final Map<String, dynamic> userMap =
           json.decode(jsonUser) as Map<String, dynamic>;
-      print('userMap $userMap');
+
       final user = LoginModel.fromJson(userMap);
       return Future.value(user);
     } else {

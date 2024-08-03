@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:git_search/data/service/local_data_storage.dart';
 import 'package:git_search/presentation/constants/constants.dart';
 import 'package:git_search/presentation/screens/favorite/favorite_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_controller.dart';
 
@@ -47,7 +49,15 @@ class MainScreen extends GetView<MainController> {
                   fit: BoxFit.scaleDown,
                 ),
               ),
-            )
+            ),
+            IconButton(
+              icon: Icon(Icons.logout, color: Colors.black),
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove(LocalDataStorageImpl.CACHE_USER);
+                // Get.offAllNamed(LoginScreen.routeName);
+              },
+            ),
           ],
         ),
         body: SafeArea(

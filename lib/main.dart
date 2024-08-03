@@ -40,11 +40,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(userRepository: sl<UserRepository>()),
+          create: (context) => sl<LoginBloc>(),
         ),
         BlocProvider<SplashBloc>(
-          create: (context) =>
-              SplashBloc(localDataStorage: sl<LocalDataStorage>()),
+          create: (context) => sl<SplashBloc>()..add(CheckUserStatusEvent()),
         ),
       ],
       child: MaterialApp(
