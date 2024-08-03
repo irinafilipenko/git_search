@@ -1,5 +1,5 @@
 import 'package:git_search/data/service/local_data_storage.dart';
-import 'package:git_search/data/service/login_service.dart';
+import 'package:git_search/data/service/services.dart';
 import 'package:git_search/data/models/login_model.dart';
 
 class UserRepository {

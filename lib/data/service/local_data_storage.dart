@@ -18,7 +18,7 @@ class LocalDataStorageImpl implements LocalDataStorage {
   Future<LoginModel> getUserFromCache() {
     final jsonUser = sharedPreferences.getString(CACHE_USER);
     if (jsonUser != null && jsonUser.isNotEmpty) {
-      print('Get User from Cache: $jsonUser');
+      // print('Get User from Cache: $jsonUser');
       final Map<String, dynamic> userMap =
           json.decode(jsonUser) as Map<String, dynamic>;
 

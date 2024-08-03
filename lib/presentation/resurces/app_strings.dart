@@ -1,4 +1,5 @@
 class AppStrings {
+  // login_screen
   static const String passwordLabelText = 'Password';
   static const String passwordHintText = 'Enter your password';
   static const String emailLabelText = 'Email';
@@ -8,4 +9,8 @@ class AppStrings {
   static const String logInText = 'Log in';
   static const String invalidText = "Invalid email or password.";
   static const String loginFailedText = "Login failed. Please try again.";
+
+  // main_screen
+  static const errorMainText =
+      "Nothing was find for your search.\n Please check the spelling";
 }

@@ -1,6 +1,7 @@
+import 'package:git_search/data/repositories/main_repository.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/data/service/local_data_storage.dart';
-import 'package:git_search/data/service/login_service.dart';
+import 'package:git_search/data/service/services.dart';
 import 'package:git_search/presentation/di/modules/module.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,6 +20,13 @@ class RepositoryModule implements Module {
       () async {
         await sl.isReady<LocalDataStorage>();
         return UserRepository(sl<LoginService>(), sl<LocalDataStorage>());
+      },
+    );
+    sl.registerSingletonAsync<MainRepository>(
+      () async {
+        return MainRepository(
+          sl<MainService>(),
+        );
       },
     );
   }

@@ -1,24 +1,25 @@
 import 'package:dio/dio.dart';
 
-import 'package:git_search/data/service/login_service.dart';
+import 'package:git_search/data/service/services.dart';
 import 'package:git_search/presentation/constants/constants.dart';
 import 'package:git_search/presentation/di/modules/module.dart';
 
 import '../../../main.dart';
 
-class LoginServiceModule implements Module {
+class ServiceModule implements Module {
   @override
   Future<void> dependency() async {
     _initDio();
     Dio dio = sl.get<Dio>();
     sl.registerLazySingleton<LoginService>(() => LoginService(dio));
+    sl.registerLazySingleton<MainService>(() => MainService(dio));
   }
 
   void _initDio() {
     final dio = Dio();
     dio.options.headers["content-type"] = "application/json";
     dio.options.headers["Accept"] = "application/json";
-    dio.options.baseUrl = kBaseUrl;
+    // dio.options.baseUrl = kBaseUrl;
     dio.options.connectTimeout = const Duration(milliseconds: 30000);
     dio.options.receiveTimeout = const Duration(milliseconds: 30000);
     // dio.options.headers["Inner-Token"] = AppConstants.innerToken;

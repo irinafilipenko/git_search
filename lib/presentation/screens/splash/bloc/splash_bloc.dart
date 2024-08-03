@@ -16,7 +16,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
   Future<void> _onCheckUserStatus(
       CheckUserStatusEvent event, Emitter<SplashState> emit) async {
-    print("onCheckUserStatus");
+    // print("onCheckUserStatus");
     try {
       final user = await localDataStorage.getUserFromCache();
       emit(state.copyWith(status: LoadingStatus.success, user: user));

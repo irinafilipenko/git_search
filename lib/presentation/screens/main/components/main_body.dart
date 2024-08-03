@@ -1,53 +1,71 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:git_search/presentation/constants/constants.dart';
+import 'package:git_search/presentation/screens/main/bloc/main_bloc.dart';
+import 'package:git_search/presentation/screens/main/bloc/main_state.dart';
 import 'package:git_search/presentation/screens/main/main_controller.dart';
 
-class MainBody extends GetView<MainController> {
+class MainBody extends StatefulWidget {
   const MainBody({super.key});
+  @override
+  MainBodyState createState() => MainBodyState();
+}
 
+class MainBodyState extends State<MainBody> {
+  final TextEditingController _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F2F2),
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            child: Obx(() {
-              return TextField(
-                controller: controller.textController,
+    return BlocListener<MainBloc, MainState>(
+      listener: (context, state) {
+        print("MainBloc");
+        print(state.status);
+        // TODO: implement listener
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF2F2F2),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: TextField(
+                controller: _textController,
                 onSubmitted: (value) {
-                  controller.onSearchChanged(value);
+                  context
+                      .read<MainBloc>()
+                      .add(MainRequestedEvent(searchText: value));
                 },
                 onChanged: (value) {
-                  controller.inputText.value = value;
+                  context
+                      .read<MainBloc>()
+                      .add(ChangeSearchTextEvent(searchText: value));
                 },
                 cursorColor: kMainAppColor,
                 cursorWidth: 1,
                 maxLines: 1,
                 style: kItemTextStyle,
                 decoration: InputDecoration(
-                  suffixIcon: controller.inputText.value.isNotEmpty
-                      ? InkWell(
-                          onTap: () {
-                            controller.onDeleteInput();
-                          },
-                          child: SvgPicture.asset(
-                            'assets/icons/close.svg',
-                            fit: BoxFit.scaleDown,
-                          ))
-                      : null,
+                  suffixIcon:
+                      // controller.inputText.value.isNotEmpty
+                      //     ? InkWell(
+                      //         onTap: () {
+                      //           controller.onDeleteInput();
+                      //         },
+                      //         child: SvgPicture.asset(
+                      //           'assets/icons/close.svg',
+                      //           fit: BoxFit.scaleDown,
+                      //         ))
+                      null,
                   prefixIcon: InkWell(
                     onTap: () {
-                      controller.onSearchChanged(controller.inputText.value);
+                      // controller.onSearchChanged(controller.inputText.value);
                     },
                     child: SvgPicture.asset(
                       'assets/icons/search.svg',
@@ -77,185 +95,175 @@ class MainBody extends GetView<MainController> {
                     borderSide: BorderSide.none,
                   ),
                 ),
-              );
-            }),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Obx(() {
-            return Visibility(
-                visible: controller.loadingState.value == "clearInput",
-                child: Container());
-          }),
-          Obx(() {
-            return Visibility(
-              visible: controller.loadingState.value == "start" ||
-                  controller.loadingState.value == "history",
-              child: const Text("Search History",
-                  style: TextStyle(
-                      color: kMainAppColor,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16)),
-            );
-          }),
-          Obx(() {
-            return Visibility(
-              visible: controller.loadingState.value == "loaded" ||
-                  controller.loadingState.value == "isEmpty",
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Visibility(
+                // visible: controller.loadingState.value == "clearInput",
+                child: Container()),
+            // Visibility(
+            //   // visible: controller.loadingState.value == "start" ||
+            //   //     controller.loadingState.value == "history",
+            //   child: const Text("Search History",
+            //       style: TextStyle(
+            //           color: kMainAppColor,
+            //           fontFamily: 'Raleway',
+            //           fontWeight: FontWeight.w600,
+            //           fontSize: 16)),
+            // ),
+            Visibility(
+              // visible: controller.loadingState.value == "loaded" ||
+              //     controller.loadingState.value == "isEmpty",
               child: const Text("What we have found",
                   style: TextStyle(
                       color: kMainAppColor,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w600,
                       fontSize: 16)),
-            );
-          }),
-          const SizedBox(
-            height: 20,
-          ),
-          Obx(() {
-            return Visibility(
-                visible: controller.loadingState.value == "loading",
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Visibility(
+                // visible: controller.loadingState.value == "loading",
                 child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CupertinoActivityIndicator(),
-                  ],
-                ));
-          }),
-          Obx(() {
-            return Visibility(
-                visible: controller.loadingState.value == "history",
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CupertinoActivityIndicator(),
+              ],
+            )),
+            // Visibility(
+            //     // visible: controller.loadingState.value == "history",
+            //     child: Expanded(
+            //   child: ListView.separated(
+            //       shrinkWrap: true,
+            //       itemBuilder: (BuildContext context, int index) {
+            //         return Container(
+            //           width: double.infinity,
+            //           height: 55,
+            //           decoration: BoxDecoration(
+            //             color: const Color(0xFFF2F2F2),
+            //             borderRadius: BorderRadius.circular(10.0),
+            //           ),
+            //           child: ListTile(
+            //             leading: SizedBox(
+            //               width: MediaQuery.of(context).size.width / 1.3,
+            //               child: Text(
+            //                 "",
+            //                 // controller.getStorageService.listHistorySearch
+            //                 //     .value.items[index].name,
+            //                 style: kItemTextStyle,
+            //                 maxLines: 1,
+            //                 overflow: TextOverflow.ellipsis,
+            //               ),
+            //             ),
+            //             trailing: InkWell(
+            //               onTap: () {
+            //                 // controller
+            //                 //     .updateHistoryListFavoriteStatus(index);
+            //               },
+            //               child:
+            //                   // controller
+            //                   //         .getStorageService
+            //                   //         .listHistorySearch
+            //                   //         .value
+            //                   //         .items[index]
+            //                   //         .isFavorite!
+            //                   // SvgPicture.asset("assets/icons/favorite.svg")
+            //                   SvgPicture.asset(
+            //                       "assets/icons/favorite_active.svg"),
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //       separatorBuilder: (BuildContext context, int index) {
+            //         return const SizedBox(
+            //           height: 10,
+            //         );
+            //       },
+            //       itemCount:
+            //           // controller.getStorageService.listHistorySearch
+            //           //             .value.items.length >
+            //           15
+            //       // ? 15
+            //       // : controller.getStorageService.listHistorySearch.value
+            //       //     .items.length
+            //       ),
+            // )),
+            Visibility(
+                // visible: controller.loadingState.value == "loaded",
                 child: Expanded(
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(10.0),
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      width: double.infinity,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF2F2F2),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        leading: SizedBox(
+                          width: MediaQuery.of(context).size.width / 1.3,
+                          child: Text(
+                            "",
+                            // controller.data.value.items[index].name,
+                            style: kItemTextStyle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          child: ListTile(
-                            leading: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.3,
-                              child: Text(
-                                controller.getStorageService.listHistorySearch
-                                    .value.items[index].name,
-                                style: kItemTextStyle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            trailing: InkWell(
-                              onTap: () {
-                                controller
-                                    .updateHistoryListFavoriteStatus(index);
-                              },
-                              child: controller
-                                      .getStorageService
-                                      .listHistorySearch
-                                      .value
-                                      .items[index]
-                                      .isFavorite!
-                                  ? SvgPicture.asset(
-                                      "assets/icons/favorite.svg")
-                                  : SvgPicture.asset(
-                                      "assets/icons/favorite_active.svg"),
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 10,
-                        );
-                      },
-                      itemCount: controller.getStorageService.listHistorySearch
-                                  .value.items.length >
-                              15
-                          ? 15
-                          : controller.getStorageService.listHistorySearch.value
-                              .items.length),
-                ));
-          }),
-          Obx(() {
-            return Visibility(
-                visible: controller.loadingState.value == "loaded",
-                child: Expanded(
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ListTile(
-                            leading: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.3,
-                              child: Text(
-                                controller.data.value.items[index].name,
-                                style: kItemTextStyle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            trailing: InkWell(
-                              onTap: () {
-                                controller.updateSearhListFavoriteStatus(index);
-                              },
-                              child:
-                                  controller.data.value.items[index].isFavorite!
-                                      ? SvgPicture.asset(
-                                          "assets/icons/favorite.svg")
-                                      : SvgPicture.asset(
-                                          "assets/icons/favorite_active.svg"),
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 10,
-                        );
-                      },
-                      itemCount: controller.data.value.items.length),
-                ));
-          }),
-          Obx(() {
-            return Visibility(
-                visible: controller.loadingState.value == "start" &&
-                    controller.getStorageService.listHistorySearch.value.items
-                        .isEmpty,
-                child: Expanded(
-                  child: Center(
-                      child: Text(
-                          "You have empty history.\n Click on search to start journey!",
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: kPlaceholderScreenTextStyle)),
-                ));
-          }),
-          Obx(() {
-            return Visibility(
-                visible: controller.loadingState.value == "isEmpty" &&
-                    controller.data.value.items.isEmpty,
-                child: Expanded(
-                  child: Center(
-                      child: Text(
-                          "Nothing was find for your search.\n Please check the spelling",
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: kPlaceholderScreenTextStyle)),
-                ));
-          })
-        ],
+                        ),
+                        trailing: InkWell(
+                          onTap: () {
+                            // controller.updateSearhListFavoriteStatus(index);
+                          },
+                          child:
+                              // controller.data.value.items[index].isFavorite!
+                              //     ? SvgPicture.asset(
+                              //         "assets/icons/favorite.svg")
+                              SvgPicture.asset(
+                                  "assets/icons/favorite_active.svg"),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(
+                      height: 10,
+                    );
+                  },
+                  itemCount: 10
+                  // controller.data.value.items.length
+                  ),
+            )),
+            // Visibility(
+            //     // visible: controller.loadingState.value == "start" &&
+            //     //     controller.getStorageService.listHistorySearch.value.items
+            //     //         .isEmpty,
+            //     child: Expanded(
+            //   child: Center(
+            //       child: Text(
+            //           "You have empty history.\n Click on search to start journey!",
+            //           textAlign: TextAlign.center,
+            //           overflow: TextOverflow.ellipsis,
+            //           style: kPlaceholderScreenTextStyle)),
+            // )),
+            // Visibility(
+            //     // visible: controller.loadingState.value == "isEmpty" &&
+            //     //     controller.data.value.items.isEmpty,
+            //     child: Expanded(
+            //   child: Center(
+            //       child: Text(
+            //           "Nothing was find for your search.\n Please check the spelling",
+            //           textAlign: TextAlign.center,
+            //           overflow: TextOverflow.ellipsis,
+            //           style: kPlaceholderScreenTextStyle)),
+            // )),
+          ],
+        ),
       ),
     );
   }

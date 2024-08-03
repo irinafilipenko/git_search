@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //Url
 const String kBaseUrl = 'https://randomuser.me';
+const String kBaseMainUrl = "https://api.github.com/search/";
 
 //Colors
 const Color kMainAppColor = Color(0xFF1463F5);

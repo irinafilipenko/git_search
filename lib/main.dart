@@ -4,12 +4,13 @@ import 'package:get_it/get_it.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/data/service/local_data_storage.dart';
 import 'package:git_search/presentation/di/injector.dart';
-import 'package:git_search/presentation/di/modules/login_service_module.dart';
+import 'package:git_search/presentation/di/modules/service_module.dart';
 import 'package:git_search/presentation/di/modules/bloc_module.dart';
 import 'package:git_search/presentation/di/modules/repository_module.dart';
 
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/login_screen.dart';
+import 'package:git_search/presentation/screens/main/bloc/main_bloc.dart';
 
 import 'package:git_search/presentation/screens/main/main_screen.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_bloc.dart';
@@ -22,7 +23,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Injector.instance.inject(
-    [LoginServiceModule(), RepositoryModule(), BlocModule()],
+    [ServiceModule(), RepositoryModule(), BlocModule()],
   );
 
   await sl.allReady();
@@ -39,11 +40,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<SplashBloc>(
+          create: (context) => sl<SplashBloc>()..add(CheckUserStatusEvent()),
+        ),
         BlocProvider<LoginBloc>(
           create: (context) => sl<LoginBloc>(),
         ),
-        BlocProvider<SplashBloc>(
-          create: (context) => sl<SplashBloc>()..add(CheckUserStatusEvent()),
+        BlocProvider<MainBloc>(
+          create: (context) => sl<MainBloc>(),
         ),
       ],
       child: MaterialApp(
