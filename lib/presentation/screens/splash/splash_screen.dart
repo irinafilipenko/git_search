@@ -24,11 +24,11 @@ class SplashScreen extends StatelessWidget {
             print(state.user);
             if (state.status == LoadingStatus.success && state.user != null) {
               Future.delayed(const Duration(seconds: 3), () {
-                // Navigator.pushReplacementNamed(context, '/main');
+                Navigator.pushReplacementNamed(context, '/main');
               });
             } else if (state.status == LoadingStatus.failure) {
               Future.delayed(const Duration(seconds: 3), () {
-                // Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushReplacementNamed(context, '/login');
               });
             }
           },

@@ -8,7 +8,7 @@ abstract class LocalDataStorage {
   Future<void> userToCache(LoginModel user);
 }
 
-const CACHED_USER = 'CACHED_USER';
+const CACHE_USER = 'CACHE_USER';
 
 class LocalDataStorageImpl implements LocalDataStorage {
   final SharedPreferences sharedPreferences;
@@ -17,10 +17,12 @@ class LocalDataStorageImpl implements LocalDataStorage {
 
   @override
   Future<LoginModel> getUserFromCache() {
-    final jsonUser = sharedPreferences.getString(CACHED_USER);
+    final jsonUser = sharedPreferences.getString(CACHE_USER);
     if (jsonUser != null && jsonUser.isNotEmpty) {
       print('Get User from Cache: $jsonUser');
-      final userMap = json.decode(jsonUser);
+      final Map<String, dynamic> userMap =
+          json.decode(jsonUser) as Map<String, dynamic>;
+      print('userMap $userMap');
       final user = LoginModel.fromJson(userMap);
       return Future.value(user);
     } else {
@@ -31,12 +33,7 @@ class LocalDataStorageImpl implements LocalDataStorage {
 
   @override
   Future<void> userToCache(LoginModel user) async {
-    await sharedPreferences.setString(CACHED_USER, user.toString());
-    // final LoginModel user =
-    //     persons.map((person) => json.encode(person.toJson())).toList();
-    //
-    // sharedPreferences.setStringList(CACHED_USER, jsonPersonsList);
-    // print('Persons to write Cache: ${jsonPersonsList.length}');
-    // return Future.value(jsonPersonsList);
+    final jsonString = json.encode(user.toJson());
+    await sharedPreferences.setString(CACHE_USER, jsonString);
   }
 }
