@@ -1,15 +1,27 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/data/service/local_data_storage.dart';
+import 'package:git_search/presentation/screens/splash/bloc/splash_state.dart';
 
 part 'splash_event.dart';
-part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
-  SplashBloc() : super(SplashInitial()) {
-    on<SplashEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+  final LocalDataStorage localDataStorage;
+
+  SplashBloc({required this.localDataStorage}) : super(const SplashState()) {
+    on<CheckUserStatusEvent>(_onCheckUserStatus);
+  }
+
+  Future<void> _onCheckUserStatus(
+      CheckUserStatusEvent event, Emitter<SplashState> emit) async {
+    try {
+      final user = await localDataStorage.getUserFromCache();
+      emit(state.copyWith(status: LoadingStatus.success, user: user));
+    } catch (error) {
+      emit(state.copyWith(
+          status: LoadingStatus.failure, errorMessage: 'User not found'));
+    }
   }
 }

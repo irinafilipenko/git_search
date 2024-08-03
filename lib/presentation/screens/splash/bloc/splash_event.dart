@@ -1,4 +1,7 @@
 part of 'splash_bloc.dart';
 
-@immutable
-abstract class SplashEvent {}
+abstract class SplashEvent {
+  const SplashEvent();
+}
+
+class CheckUserStatusEvent extends SplashEvent {}
