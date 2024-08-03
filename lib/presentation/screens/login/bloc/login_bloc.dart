@@ -60,6 +60,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
       final user = await userRepository.login(event.email, event.password);
+      // Save user to cache
+      await userRepository.saveUserToCache(user);
+
       emit(state.copyWith(status: LoadingStatus.success, user: user));
     } catch (error) {
       emit(state.copyWith(

@@ -12,12 +12,20 @@ import 'package:git_search/presentation/screens/login/login_screen.dart';
 
 import 'package:git_search/presentation/screens/main/main_screen.dart';
 
+import 'presentation/di/modules/shared_preferences_module.dart';
+
 final sl = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Injector.instance
-      .inject([LoginServiceModule(), RepositoryModule(), BlocModule()]);
+  Injector.instance.inject(
+    [
+      SharedPreferencesModule(),
+      LoginServiceModule(),
+      RepositoryModule(),
+      BlocModule()
+    ],
+  );
 
   runApp(const MyApp());
 }
