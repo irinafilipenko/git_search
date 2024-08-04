@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:git_search/data/routers.dart';
 
 import 'package:git_search/presentation/di/injector.dart';
 import 'package:git_search/presentation/di/modules/service_module.dart';
@@ -34,16 +35,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Photo App',
+    return MaterialApp.router(
+      title: 'Git search',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const SplashScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
-      },
+
+      routerConfig: router,
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const SplashScreen(),
+      //   '/login': (context) => const LoginScreen(),
+      //   '/home': (context) => const HomeScreen(),
+      // },
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
 
 class FavoriteScreen extends StatelessWidget {
-  static String routeName = '/favorite';
+  // static String routeName = '/favorite';
 
   const FavoriteScreen({super.key});
 

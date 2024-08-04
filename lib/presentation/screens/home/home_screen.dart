@@ -8,10 +8,11 @@ import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:git_search/presentation/screens/home/components/home_body.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
-  static String routeName = '/home';
+  // static String routeName = '/home';
 
   const HomeScreen({super.key});
 
@@ -58,8 +59,8 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.remove(LocalDataStorageImpl.cacheUser);
-                  Navigator.pushReplacementNamed(context, '/login');
-                  // Get.offAllNamed(LoginScreen.routeName);
+                  context.go('/login');
+                  // Navigator.pushReplacementNamed(context, '/login');
                 },
               ),
             ],

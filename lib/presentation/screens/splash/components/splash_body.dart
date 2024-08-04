@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_bloc.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_state.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
@@ -31,10 +32,12 @@ class SplashBodyState extends State<SplashBody> {
           return;
         } else if (state.status == LoadingStatus.success &&
             state.user != null) {
-          Navigator.pushReplacementNamed(context, '/home');
+          context.go('/home');
+          // Navigator.pushReplacementNamed(context, '/home');
         } else if (state.status == LoadingStatus.success &&
             state.user == null) {
-          Navigator.pushReplacementNamed(context, '/login');
+          context.go('/login');
+          // Navigator.pushReplacementNamed(context, '/login');
         }
       },
       child: Image.asset(

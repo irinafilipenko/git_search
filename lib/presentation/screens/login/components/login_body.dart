@@ -10,6 +10,7 @@ import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
 import 'package:git_search/presentation/screens/login/components/custom_button.dart';
 import 'package:git_search/presentation/screens/login/components/custom_snack_bar.dart';
 import 'package:git_search/presentation/screens/login/components/custom_text_field.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -76,7 +77,8 @@ class LoginBodyState extends State<LoginBody> {
           case LoadingStatus.success:
             Timer(const Duration(microseconds: 10), () {
               _resetFields();
-              Navigator.pushReplacementNamed(context, '/home');
+              context.go('/home');
+              // Navigator.pushReplacementNamed(context, '/home');
             });
             break;
 

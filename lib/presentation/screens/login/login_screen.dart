@@ -7,7 +7,7 @@ import 'package:git_search/presentation/screens/login/components/login_body.dart
 import '../../../main.dart';
 
 class LoginScreen extends StatelessWidget {
-  static String routeName = '/login';
+  // static String routeName = '/login';
 
   const LoginScreen({super.key});
 
