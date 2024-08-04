@@ -67,17 +67,16 @@ class HomeBodyState extends State<HomeBody> {
                     maxLines: 1,
                     style: kItemTextStyle,
                     decoration: InputDecoration(
-                      suffixIcon:
-                          // controller.inputText.value.isNotEmpty
-                          //     ? InkWell(
-                          //         onTap: () {
-                          //           controller.onDeleteInput();
-                          //         },
-                          //         child: SvgPicture.asset(
-                          //           'assets/icons/close.svg',
-                          //           fit: BoxFit.scaleDown,
-                          //         ))
-                          null,
+                      suffixIcon: _textController.text.isNotEmpty
+                          ? InkWell(
+                              onTap: () {
+                                _textController.clear();
+                              },
+                              child: SvgPicture.asset(
+                                'assets/icons/close.svg',
+                                fit: BoxFit.scaleDown,
+                              ))
+                          : null,
                       prefixIcon: InkWell(
                         onTap: () {
                           // controller.onSearchChanged(controller.inputText.value);
