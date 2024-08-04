@@ -34,29 +34,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SplashBloc>(
-          create: (context) => sl<SplashBloc>()..add(CheckUserStatusEvent()),
-        ),
-        // BlocProvider<LoginBloc>(
-        //   create: (context) => sl<LoginBloc>(),
-        // ),
-        // BlocProvider<MainBloc>(
-        //   create: (context) => sl<MainBloc>(),
-        // ),
-      ],
-      child: MaterialApp(
-        title: 'Photo App',
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const SplashScreen(),
-          '/login': (context) => const LoginScreen(),
-          '/home': (context) => const HomeScreen(),
-        },
-      ),
+    return MaterialApp(
+      title: 'Photo App',
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/home': (context) => const HomeScreen(),
+      },
     );
   }
 }
