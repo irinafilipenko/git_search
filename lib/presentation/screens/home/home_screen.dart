@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:git_search/data/service/local_data_storage.dart';
 import 'package:git_search/main.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:git_search/presentation/screens/home/components/home_body.dart';
@@ -28,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             title: Text(
-              "Github repos list",
+              AppStrings.headHomeAppBarText,
               style: kAppBarTextStyle,
             ),
             centerTitle: true,
@@ -57,6 +58,7 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.remove(LocalDataStorageImpl.cacheUser);
+                  Navigator.pushReplacementNamed(context, '/login');
                   // Get.offAllNamed(LoginScreen.routeName);
                 },
               ),

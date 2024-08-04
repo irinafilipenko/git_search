@@ -33,7 +33,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (error) {
       emit(state.copyWith(
         status: LoadingStatus.failure,
-        errorMessage: AppStrings.errorMainText,
+        errorMessage: AppStrings.errorHomeText,
       ));
     }
   }

@@ -7,6 +7,8 @@ part 'home_model.g.dart';
 class HomeResponse with _$HomeResponse {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeResponse({
+    required int totalCount,
+    required bool incompleteResults,
     required List<HomeModel> items,
   }) = _HomeResponse;
 

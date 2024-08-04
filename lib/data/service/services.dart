@@ -16,10 +16,10 @@ abstract class LoginService {
   Future<LoginResponse> getUser();
 }
 
-@RestApi(baseUrl: kBaseMainUrl)
+@RestApi(baseUrl: kBaseHomeUrl)
 abstract class HomeService {
   factory HomeService(Dio dio, {String baseUrl}) = _HomeService;
 
-  @GET("/{variables}")
+  @GET("{variables}")
   Future<HomeResponse> getRequest(@Path("variables") String variables);
 }

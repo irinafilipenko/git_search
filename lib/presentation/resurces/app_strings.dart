@@ -10,9 +10,10 @@ class AppStrings {
   static const String invalidText = "Invalid email or password.";
   static const String loginFailedText = "Login failed. Please try again.";
 
-  // main_screen
-  static const errorMainText =
+  // home_screen
+  static const errorHomeText =
       "Nothing was find for your search.\n Please check the spelling";
+  static const headHomeAppBarText = "Github repos list";
 
   // splash_screen
   static const errorSplashText = 'Network error';

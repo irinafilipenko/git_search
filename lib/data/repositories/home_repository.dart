@@ -10,7 +10,9 @@ class HomeRepository {
   );
 
   Future<HomeResponse> getRepository(String searchText) async {
+    print(" getRepository");
     final response = await _homeService.getRequest(searchText);
+    print(response);
     return response;
   }
 

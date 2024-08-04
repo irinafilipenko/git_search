@@ -24,7 +24,6 @@ class HomeBodyState extends State<HomeBody> {
 
         switch (state.status) {
           case LoadingStatus.success:
-            print("success");
             break;
 
           case LoadingStatus.failure:
