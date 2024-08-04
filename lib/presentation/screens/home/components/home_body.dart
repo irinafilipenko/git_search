@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_state.dart';
@@ -86,7 +87,7 @@ class HomeBodyState extends State<HomeBody> {
                           fit: BoxFit.scaleDown,
                         ),
                       ),
-                      hintText: 'Search',
+                      hintText: AppStrings.hintTextField,
                       hintStyle: kPlaceholderTextStyle,
                       isCollapsed: true,
                       contentPadding:
@@ -127,10 +128,9 @@ class HomeBodyState extends State<HomeBody> {
                 //           fontWeight: FontWeight.w600,
                 //           fontSize: 16)),
                 // ),
-                const Visibility(
-                  // visible: controller.loadingState.value == "loaded" ||
-                  //     controller.loadingState.value == "isEmpty",
-                  child: Text("What we have found",
+                Visibility(
+                  visible: state.status == LoadingStatus.success,
+                  child: const Text(AppStrings.foundString,
                       style: TextStyle(
                           color: kMainAppColor,
                           fontFamily: 'Raleway',
@@ -140,14 +140,14 @@ class HomeBodyState extends State<HomeBody> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Visibility(
-                    // visible: controller.loadingState.value == "loading",
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CupertinoActivityIndicator(),
-                  ],
-                )),
+                Visibility(
+                    visible: state.status == LoadingStatus.loading,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CupertinoActivityIndicator(),
+                      ],
+                    )),
                 // Visibility(
                 //     // visible: controller.loadingState.value == "history",
                 //     child: Expanded(
@@ -207,52 +207,53 @@ class HomeBodyState extends State<HomeBody> {
                 //       ),
                 // )),
                 Visibility(
-                    // visible: controller.loadingState.value == "loaded",
+                    visible: state.status == LoadingStatus.success,
                     child: Expanded(
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F2F2),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ListTile(
-                            leading: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.3,
-                              child: Text(
-                                "",
-                                // controller.data.value.items[index].name,
-                                style: kItemTextStyle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                      child: ListView.separated(
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              width: double.infinity,
+                              height: 55,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF2F2F2),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                            ),
-                            trailing: InkWell(
-                              onTap: () {
-                                // controller.updateSearhListFavoriteStatus(index);
-                              },
-                              child:
-                                  // controller.data.value.items[index].isFavorite!
-                                  //     ? SvgPicture.asset(
-                                  //         "assets/icons/favorite.svg")
-                                  SvgPicture.asset(
-                                      "assets/icons/favorite_active.svg"),
-                            ),
+                              child: ListTile(
+                                leading: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  child: Text(
+                                    "",
+                                    // controller.data.value.items[index].name,
+                                    style: kItemTextStyle,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                trailing: InkWell(
+                                  onTap: () {
+                                    // controller.updateSearhListFavoriteStatus(index);
+                                  },
+                                  child:
+                                      // controller.data.value.items[index].isFavorite!
+                                      //     ? SvgPicture.asset(
+                                      //         "assets/icons/favorite.svg")
+                                      SvgPicture.asset(
+                                          "assets/icons/favorite_active.svg"),
+                                ),
+                              ),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              height: 10,
+                            );
+                          },
+                          itemCount: 10
+                          // controller.data.value.items.length
                           ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 10,
-                        );
-                      },
-                      itemCount: 10
-                      // controller.data.value.items.length
-                      ),
-                )),
+                    )),
                 // Visibility(
                 //     // visible: controller.loadingState.value == "start" &&
                 //     //     controller.getStorageService.listHistorySearch.value.items

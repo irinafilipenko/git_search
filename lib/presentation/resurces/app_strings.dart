@@ -14,6 +14,8 @@ class AppStrings {
   static const errorHomeText =
       "Nothing was find for your search.\n Please check the spelling";
   static const headHomeAppBarText = "Github repos list";
+  static const foundString = "What we have found";
+  static const hintTextField = 'Search';
 
   // splash_screen
   static const errorSplashText = 'Network error';

@@ -7,12 +7,6 @@ import 'package:git_search/presentation/di/injector.dart';
 import 'package:git_search/presentation/di/modules/service_module.dart';
 import 'package:git_search/presentation/di/modules/bloc_module.dart';
 import 'package:git_search/presentation/di/modules/repository_module.dart';
-import 'package:git_search/presentation/screens/home/home_screen.dart';
-
-import 'package:git_search/presentation/screens/login/login_screen.dart';
-
-import 'package:git_search/presentation/screens/splash/bloc/splash_bloc.dart';
-import 'package:git_search/presentation/screens/splash/splash_screen.dart';
 
 final sl = GetIt.instance;
 

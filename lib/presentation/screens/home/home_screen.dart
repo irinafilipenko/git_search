@@ -40,20 +40,20 @@ class HomeScreen extends StatelessWidget {
                   color: const Color(0xFFF2F2F2),
                   height: 3.0,
                 )),
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: InkWell(
-                  onTap: () {
-                    // Get.toNamed(FavoriteScreen.routeName)!
-                    //     .then((value) => controller.data.refresh());
-                  },
-                  child: SvgPicture.asset(
-                    "assets/icons/icon_button_star.svg",
-                    fit: BoxFit.scaleDown,
-                  ),
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: InkWell(
+                onTap: () {
+                  // Get.toNamed(FavoriteScreen.routeName)!
+                  //     .then((value) => controller.data.refresh());
+                },
+                child: SvgPicture.asset(
+                  "assets/icons/icon_button_star.svg",
+                  fit: BoxFit.scaleDown,
                 ),
               ),
+            ),
+            actions: <Widget>[
               IconButton(
                 icon: const Icon(Icons.logout, color: Colors.black),
                 onPressed: () async {
