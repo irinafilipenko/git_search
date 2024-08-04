@@ -4,19 +4,17 @@ import 'package:git_search/data/models/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalDataStorage {
-  Future<LoginModel> getUserFromCache();
+  Future<LoginModel?> getUserFromCache();
   Future<void> userToCache(LoginModel user);
 }
 
 class LocalDataStorageImpl implements LocalDataStorage {
-  final SharedPreferences sharedPreferences;
-  static const CACHE_USER = 'CACHE_USER';
-
-  LocalDataStorageImpl({required this.sharedPreferences});
+  static const cacheUser = 'CACHE_USER';
 
   @override
-  Future<LoginModel> getUserFromCache() {
-    final jsonUser = sharedPreferences.getString(CACHE_USER);
+  Future<LoginModel?> getUserFromCache() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final jsonUser = sharedPreferences.getString(cacheUser);
     if (jsonUser != null && jsonUser.isNotEmpty) {
       // print('Get User from Cache: $jsonUser');
       final Map<String, dynamic> userMap =
@@ -26,13 +24,15 @@ class LocalDataStorageImpl implements LocalDataStorage {
       return Future.value(user);
     } else {
       print("User not found");
-      throw Exception();
+      return null;
+      // throw Exception();
     }
   }
 
   @override
   Future<void> userToCache(LoginModel user) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
     final jsonString = json.encode(user.toJson());
-    await sharedPreferences.setString(CACHE_USER, jsonString);
+    await sharedPreferences.setString(cacheUser, jsonString);
   }
 }

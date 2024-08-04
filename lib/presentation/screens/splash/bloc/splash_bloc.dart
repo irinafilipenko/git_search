@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/data/service/local_data_storage.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_state.dart';
 
 part 'splash_event.dart';
@@ -22,7 +23,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       emit(state.copyWith(status: LoadingStatus.success, user: user));
     } catch (error) {
       emit(state.copyWith(
-          status: LoadingStatus.failure, errorMessage: 'User not found'));
+          status: LoadingStatus.failure,
+          errorMessage: AppStrings.errorSplashText));
     }
   }
 }

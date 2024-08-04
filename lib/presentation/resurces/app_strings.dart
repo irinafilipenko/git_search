@@ -13,4 +13,7 @@ class AppStrings {
   // main_screen
   static const errorMainText =
       "Nothing was find for your search.\n Please check the spelling";
+
+  // splash_screen
+  static const errorSplashText = 'Network error';
 }

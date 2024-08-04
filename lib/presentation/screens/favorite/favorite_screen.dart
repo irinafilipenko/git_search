@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:git_search/presentation/constants/constants.dart';
-import 'package:git_search/presentation/screens/favorite/components/favorite_body.dart';
+import 'package:git_search/presentation/resurces/constants.dart';
 
 class FavoriteScreen extends StatelessWidget {
   static String routeName = '/favorite';
@@ -40,8 +40,8 @@ class FavoriteScreen extends StatelessWidget {
                 height: 3.0,
               )),
         ),
-        body: const SafeArea(
-          child: FavoriteBody(),
+        body: SafeArea(
+          child: Container(),
         ));
   }
 }

@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
-
 import 'package:git_search/data/service/services.dart';
-import 'package:git_search/presentation/constants/constants.dart';
 import 'package:git_search/presentation/di/modules/module.dart';
-
 import '../../../main.dart';
 
 class ServiceModule implements Module {
@@ -12,7 +9,7 @@ class ServiceModule implements Module {
     _initDio();
     Dio dio = sl.get<Dio>();
     sl.registerLazySingleton<LoginService>(() => LoginService(dio));
-    sl.registerLazySingleton<MainService>(() => MainService(dio));
+    sl.registerLazySingleton<HomeService>(() => HomeService(dio));
   }
 
   void _initDio() {

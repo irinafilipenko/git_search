@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:git_search/data/repositories/user_repository.dart';
-import 'package:git_search/data/service/local_data_storage.dart';
+
 import 'package:git_search/presentation/di/injector.dart';
 import 'package:git_search/presentation/di/modules/service_module.dart';
 import 'package:git_search/presentation/di/modules/bloc_module.dart';
 import 'package:git_search/presentation/di/modules/repository_module.dart';
+import 'package:git_search/presentation/screens/home/home_screen.dart';
 
-import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/login_screen.dart';
-import 'package:git_search/presentation/screens/main/bloc/main_bloc.dart';
 
-import 'package:git_search/presentation/screens/main/main_screen.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_bloc.dart';
 import 'package:git_search/presentation/screens/splash/splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
@@ -43,12 +39,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<SplashBloc>(
           create: (context) => sl<SplashBloc>()..add(CheckUserStatusEvent()),
         ),
-        BlocProvider<LoginBloc>(
-          create: (context) => sl<LoginBloc>(),
-        ),
-        BlocProvider<MainBloc>(
-          create: (context) => sl<MainBloc>(),
-        ),
+        // BlocProvider<LoginBloc>(
+        //   create: (context) => sl<LoginBloc>(),
+        // ),
+        // BlocProvider<MainBloc>(
+        //   create: (context) => sl<MainBloc>(),
+        // ),
       ],
       child: MaterialApp(
         title: 'Photo App',
@@ -58,7 +54,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const SplashScreen(),
           '/login': (context) => const LoginScreen(),
-          '/main': (context) => const MainScreen(),
+          '/home': (context) => const HomeScreen(),
         },
       ),
     );

@@ -1,30 +1,30 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/data/loading_status.dart';
-import 'package:git_search/data/repositories/main_repository.dart';
+import 'package:git_search/data/repositories/home_repository.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
-import 'package:git_search/presentation/screens/main/bloc/main_state.dart';
+import 'package:git_search/presentation/screens/home/bloc/home_state.dart';
 
-part 'main_event.dart';
+part 'home_event.dart';
 
-class MainBloc extends Bloc<MainEvent, MainState> {
-  final MainRepository mainRepository;
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  final HomeRepository homeRepository;
 
-  MainBloc({required this.mainRepository}) : super(const MainState()) {
-    on<MainRequestedEvent>(_onMainRequested);
+  HomeBloc({required this.homeRepository}) : super(const HomeState()) {
+    on<HomeRequestedEvent>(_onHomeRequested);
     on<ChangeSearchTextEvent>(_onChangeSearchText);
   }
 
   void _onChangeSearchText(
-      ChangeSearchTextEvent event, Emitter<MainState> emit) {
+      ChangeSearchTextEvent event, Emitter<HomeState> emit) {
     emit(state.copyWith(searchText: event.searchText));
   }
 
-  void _onMainRequested(
-      MainRequestedEvent event, Emitter<MainState> emit) async {
+  void _onHomeRequested(
+      HomeRequestedEvent event, Emitter<HomeState> emit) async {
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
       final repositoryList =
-          await mainRepository.getRepository(event.searchText);
+          await homeRepository.getRepository(event.searchText);
       // Save user to cache
       // await userRepository.saveUserToCache(user);
 

@@ -1,19 +1,18 @@
-import 'package:git_search/data/repositories/main_repository.dart';
+import 'package:git_search/data/repositories/home_repository.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/data/service/local_data_storage.dart';
 import 'package:git_search/data/service/services.dart';
 import 'package:git_search/presentation/di/modules/module.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../main.dart';
 
 class RepositoryModule implements Module {
   @override
   void dependency() {
+    // sl.registerLazySingleton<LocalDataStorage>(() => LocalDataStorageImpl());
     sl.registerSingletonAsync<LocalDataStorage>(
       () async {
-        final sharedPreferences = await SharedPreferences.getInstance();
-        return LocalDataStorageImpl(sharedPreferences: sharedPreferences);
+        return LocalDataStorageImpl();
       },
     );
     sl.registerSingletonAsync<UserRepository>(
@@ -22,10 +21,10 @@ class RepositoryModule implements Module {
         return UserRepository(sl<LoginService>(), sl<LocalDataStorage>());
       },
     );
-    sl.registerSingletonAsync<MainRepository>(
+    sl.registerSingletonAsync<HomeRepository>(
       () async {
-        return MainRepository(
-          sl<MainService>(),
+        return HomeRepository(
+          sl<HomeService>(),
         );
       },
     );

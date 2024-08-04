@@ -1,6 +1,6 @@
 import 'package:git_search/data/models/login_model.dart';
-import 'package:git_search/data/models/main_model.dart';
-import 'package:git_search/presentation/constants/constants.dart';
+import 'package:git_search/data/models/home_model.dart';
+import 'package:git_search/presentation/resurces/constants.dart';
 import 'package:retrofit/retrofit.dart';
 
 import 'package:dio/dio.dart';
@@ -17,9 +17,9 @@ abstract class LoginService {
 }
 
 @RestApi(baseUrl: kBaseMainUrl)
-abstract class MainService {
-  factory MainService(Dio dio, {String baseUrl}) = _MainService;
+abstract class HomeService {
+  factory HomeService(Dio dio, {String baseUrl}) = _HomeService;
 
   @GET("/{variables}")
-  Future<MainResponse> getRequest(@Path("variables") String variables);
+  Future<HomeResponse> getRequest(@Path("variables") String variables);
 }

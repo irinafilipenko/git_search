@@ -76,7 +76,7 @@ class LoginBodyState extends State<LoginBody> {
           case LoadingStatus.success:
             Timer(const Duration(microseconds: 10), () {
               _resetFields();
-              Navigator.pushReplacementNamed(context, '/main');
+              Navigator.pushReplacementNamed(context, '/home');
             });
             break;
 

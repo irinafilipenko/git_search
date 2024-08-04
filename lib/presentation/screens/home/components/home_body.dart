@@ -2,26 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:git_search/data/loading_status.dart';
-import 'package:git_search/presentation/constants/constants.dart';
-import 'package:git_search/presentation/screens/main/bloc/main_bloc.dart';
-import 'package:git_search/presentation/screens/main/bloc/main_state.dart';
-import 'package:git_search/presentation/screens/main/main_controller.dart';
 
-class MainBody extends StatefulWidget {
-  const MainBody({super.key});
+import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/presentation/resurces/constants.dart';
+import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
+import 'package:git_search/presentation/screens/home/bloc/home_state.dart';
+
+class HomeBody extends StatefulWidget {
+  const HomeBody({super.key});
   @override
-  MainBodyState createState() => MainBodyState();
+  HomeBodyState createState() => HomeBodyState();
 }
 
-class MainBodyState extends State<MainBody> {
+class HomeBodyState extends State<HomeBody> {
   final TextEditingController _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocListener<MainBloc, MainState>(
+    return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-        print("MainBloc");
         print(state.status);
 
         switch (state.status) {
@@ -39,7 +37,7 @@ class MainBodyState extends State<MainBody> {
             break;
         }
       },
-      child: BlocBuilder<MainBloc, MainState>(
+      child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
@@ -56,12 +54,12 @@ class MainBodyState extends State<MainBody> {
                     controller: _textController,
                     onSubmitted: (value) {
                       context
-                          .read<MainBloc>()
-                          .add(MainRequestedEvent(searchText: value));
+                          .read<HomeBloc>()
+                          .add(HomeRequestedEvent(searchText: value));
                     },
                     onChanged: (value) {
                       context
-                          .read<MainBloc>()
+                          .read<HomeBloc>()
                           .add(ChangeSearchTextEvent(searchText: value));
                     },
                     cursorColor: kMainAppColor,
@@ -130,10 +128,10 @@ class MainBodyState extends State<MainBody> {
                 //           fontWeight: FontWeight.w600,
                 //           fontSize: 16)),
                 // ),
-                Visibility(
+                const Visibility(
                   // visible: controller.loadingState.value == "loaded" ||
                   //     controller.loadingState.value == "isEmpty",
-                  child: const Text("What we have found",
+                  child: Text("What we have found",
                       style: TextStyle(
                           color: kMainAppColor,
                           fontFamily: 'Raleway',
@@ -143,9 +141,9 @@ class MainBodyState extends State<MainBody> {
                 const SizedBox(
                   height: 20,
                 ),
-                Visibility(
+                const Visibility(
                     // visible: controller.loadingState.value == "loading",
-                    child: const Row(
+                    child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CupertinoActivityIndicator(),
