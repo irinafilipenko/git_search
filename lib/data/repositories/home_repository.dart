@@ -9,11 +9,11 @@ class HomeRepository {
     this._homeService,
   );
 
-  Future<HomeResponse> getRepository(String searchText) async {
+  Future<List<HomeModel>> getRepository(String searchText) async {
     print(" getRepository");
     final response = await _homeService.getRequest(searchText);
-    print(response);
-    return response;
+    print(response.items);
+    return response.items;
   }
 
   // Future<void> saveUserToCache(LoginModel user) async {

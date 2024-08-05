@@ -8,7 +8,7 @@ part 'home_state.freezed.dart';
 class HomeState with _$HomeState {
   const factory HomeState({
     @Default(LoadingStatus.initial) LoadingStatus status,
-    HomeResponse? repositoryList,
+    List<HomeModel>? repositoryList,
     String? searchText,
     String? errorMessage,
   }) = _HomeState;

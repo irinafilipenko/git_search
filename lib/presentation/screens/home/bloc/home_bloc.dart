@@ -31,6 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(
           status: LoadingStatus.success, repositoryList: repositoryList));
     } catch (error) {
+      print(error);
       emit(state.copyWith(
         status: LoadingStatus.failure,
         errorMessage: AppStrings.errorHomeText,
