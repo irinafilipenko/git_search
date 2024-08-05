@@ -2,6 +2,7 @@ import 'package:git_search/data/repositories/home_repository.dart';
 import 'package:git_search/data/repositories/user_repository.dart';
 import 'package:git_search/data/service/local_data_storage.dart';
 import 'package:git_search/presentation/di/modules/module.dart';
+import 'package:git_search/presentation/screens/favorite/bloc/favorite_bloc.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 
@@ -18,5 +19,7 @@ class BlocModule implements Module {
     sl.registerFactory(() => HomeBloc(
         homeRepository: sl<HomeRepository>(),
         localDataStorage: sl<LocalDataStorage>()));
+    sl.registerFactory(
+        () => FavoriteBloc(localDataStorage: sl<LocalDataStorage>()));
   }
 }

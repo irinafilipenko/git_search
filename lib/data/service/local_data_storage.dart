@@ -9,6 +9,7 @@ abstract class LocalDataStorage {
   Future<void> userToCache(LoginModel user);
   Future<List<HomeModel>> getFavoriteRepositoriesFromCache();
   Future<void> favoriteRepositoriesToCache(List<HomeModel> repositories);
+  Future<void> deleteRepositoriesToCache(List<HomeModel> repositories);
 }
 
 class LocalDataStorageImpl implements LocalDataStorage {
@@ -57,11 +58,40 @@ class LocalDataStorageImpl implements LocalDataStorage {
   @override
   Future<void> favoriteRepositoriesToCache(List<HomeModel> repositories) async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    final favoriteRepositories =
-        repositories.where((repo) => repo.isFavorite).toList();
+
+    // Retrieve existing favorite repositories
+    final jsonExistingFavorites =
+        sharedPreferences.getString(cacheFavoriteRepositories);
+    List<HomeModel> existingFavorites = [];
+    if (jsonExistingFavorites != null && jsonExistingFavorites.isNotEmpty) {
+      List<dynamic> decodedJson = json.decode(jsonExistingFavorites);
+      existingFavorites = decodedJson
+          .map((repo) => HomeModel.fromJson(repo as Map<String, dynamic>))
+          .toList();
+    }
+
+    // Filter new favorite repositories
+    final newFavorites = repositories.where((repo) => repo.isFavorite).toList();
+
+    // Merge existing and new favorites, avoiding duplicates
+    final mergedFavorites = {...existingFavorites, ...newFavorites}.toList();
+
+    // Save merged favorites to cache
     final jsonString =
-        json.encode(favoriteRepositories.map((repo) => repo.toJson()).toList());
-    print(jsonString);
+        json.encode(mergedFavorites.map((repo) => repo.toJson()).toList());
+    // print(jsonString);
+    await sharedPreferences.setString(cacheFavoriteRepositories, jsonString);
+  }
+
+  @override
+  Future<void> deleteRepositoriesToCache(List<HomeModel> updatedList) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+
+    // Serialize the updated list to JSON
+    final jsonString =
+        json.encode(updatedList.map((repo) => repo.toJson()).toList());
+
+    // Save the updated list to cache
     await sharedPreferences.setString(cacheFavoriteRepositories, jsonString);
   }
 }

@@ -44,8 +44,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 16),
               child: InkWell(
                 onTap: () {
-                  // Get.toNamed(FavoriteScreen.routeName)!
-                  //     .then((value) => controller.data.refresh());
+                  context.go('/favorite');
                 },
                 child: SvgPicture.asset(
                   "assets/icons/icon_button_star.svg",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_search/presentation/screens/favorite/favorite_screen.dart';
 import 'package:git_search/presentation/screens/home/home_screen.dart';
 import 'package:git_search/presentation/screens/login/login_screen.dart';
 import 'package:git_search/presentation/screens/splash/splash_screen.dart';
@@ -23,6 +24,12 @@ final GoRouter router = GoRouter(
       path: '/home',
       builder: (BuildContext context, GoRouterState state) {
         return const HomeScreen();
+      },
+    ),
+    GoRoute(
+      path: '/favorite',
+      builder: (BuildContext context, GoRouterState state) {
+        return const FavoriteScreen();
       },
     ),
   ],

@@ -22,7 +22,7 @@ class HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
-        print(state.status);
+        // зачем нужен листнер? для выполнения каких то функций?
 
         switch (state.status) {
           case LoadingStatus.success:
