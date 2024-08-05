@@ -15,6 +15,8 @@ class BlocModule implements Module {
     sl.registerFactory(
         () => SplashBloc(localDataStorage: sl<LocalDataStorage>()));
     sl.registerFactory(() => LoginBloc(userRepository: sl<UserRepository>()));
-    sl.registerFactory(() => HomeBloc(homeRepository: sl<HomeRepository>()));
+    sl.registerFactory(() => HomeBloc(
+        homeRepository: sl<HomeRepository>(),
+        localDataStorage: sl<LocalDataStorage>()));
   }
 }
