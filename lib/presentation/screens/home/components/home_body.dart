@@ -207,7 +207,8 @@ class HomeBodyState extends State<HomeBody> {
                 //       ),
                 // )),
                 Visibility(
-                    visible: state.status == LoadingStatus.success,
+                    visible: state.status == LoadingStatus.success &&
+                        state.repositoryList != null,
                     child: Expanded(
                       child: ListView.separated(
                           shrinkWrap: true,
@@ -224,8 +225,7 @@ class HomeBodyState extends State<HomeBody> {
                                   width:
                                       MediaQuery.of(context).size.width / 1.3,
                                   child: Text(
-                                    "",
-                                    // controller.data.value.items[index].name,
+                                    state.repositoryList![index].name,
                                     style: kItemTextStyle,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -250,7 +250,7 @@ class HomeBodyState extends State<HomeBody> {
                               height: 10,
                             );
                           },
-                          itemCount: 10
+                          itemCount: state.repositoryList!.length
                           // controller.data.value.items.length
                           ),
                     )),
