@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:git_search/data/models/home_model.dart';
 import 'package:git_search/data/models/login_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,9 +27,7 @@ class LocalDataStorageImpl implements LocalDataStorage {
       final user = LoginModel.fromJson(userMap);
       return Future.value(user);
     } else {
-      print("User not found");
       return null;
-      // throw Exception();
     }
   }
 
@@ -50,7 +47,6 @@ class LocalDataStorageImpl implements LocalDataStorage {
       final List<dynamic> repositoryList = json.decode(jsonRepositories);
       return repositoryList.map((repo) => HomeModel.fromJson(repo)).toList();
     } else {
-      print("No favorite repositories found");
       return [];
     }
   }

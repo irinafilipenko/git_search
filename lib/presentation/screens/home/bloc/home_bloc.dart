@@ -30,13 +30,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       final repositoryList =
           await homeRepository.getRepository(event.searchText);
-      // Save user to cache
-      // await userRepository.saveUserToCache(user);
-
       emit(state.copyWith(
           status: LoadingStatus.success, repositoryList: repositoryList));
     } catch (error) {
-      print(error);
       emit(state.copyWith(
         status: LoadingStatus.failure,
         errorMessage: AppStrings.errorHomeText,
@@ -49,12 +45,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final updatedModel = state.repositoryList![event.index].copyWith(
       isFavorite: !state.repositoryList![event.index].isFavorite,
     );
-
     final updatedList = List<HomeModel>.from(state.repositoryList!);
     updatedList[event.index] = updatedModel;
-
     emit(state.copyWith(repositoryList: updatedList));
-
     final favoriteRepositories =
         updatedList.where((repo) => repo.isFavorite).toList();
     await localDataStorage.favoriteRepositoriesToCache(favoriteRepositories);

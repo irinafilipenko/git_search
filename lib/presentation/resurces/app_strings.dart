@@ -1,4 +1,7 @@
 class AppStrings {
+  //assets
+  static const String isFavoriteStar = "assets/icons/favorite_active.svg";
+  static const String isNotFavoriteStar = "assets/icons/favorite.svg";
   // login_screen
   static const String passwordLabelText = 'Password';
   static const String passwordHintText = 'Enter your password';
@@ -16,7 +19,13 @@ class AppStrings {
   static const headHomeAppBarText = "Github repos list";
   static const foundString = "What we have found";
   static const hintTextField = 'Search';
+  static const homeEmptyListAlert = "Click on search to start journey!";
 
   // splash_screen
   static const errorSplashText = 'Network error';
+
+  //favorite_screen
+  static const headFavoriteAppBarText = "Favorite repos list";
+  static const favoriteEmptyListAlert =
+      "You have no favorites. \n Click on star while searching to add first favorite";
 }

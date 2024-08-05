@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:git_search/main.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
 import 'package:git_search/presentation/screens/favorite/bloc/favorite_bloc.dart';
 import 'package:git_search/presentation/screens/favorite/components/favorite_body.dart';
@@ -35,7 +36,7 @@ class FavoriteScreen extends StatelessWidget {
               },
             ),
             title: Text(
-              "Favorite repos list",
+              AppStrings.headFavoriteAppBarText,
               style: kAppBarTextStyle,
             ),
             centerTitle: true,
@@ -46,7 +47,7 @@ class FavoriteScreen extends StatelessWidget {
                   height: 3.0,
                 )),
           ),
-          body: SafeArea(
+          body: const SafeArea(
             child: FavoriteBody(),
           )),
     );
