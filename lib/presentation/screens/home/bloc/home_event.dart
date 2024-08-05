@@ -15,3 +15,9 @@ class ChangeSearchTextEvent extends HomeEvent {
 
   ChangeSearchTextEvent({required this.searchText});
 }
+
+class ToggleFavoriteEvent extends HomeEvent {
+  final int index;
+
+  ToggleFavoriteEvent({required this.index});
+}

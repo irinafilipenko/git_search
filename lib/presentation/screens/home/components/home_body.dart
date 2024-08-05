@@ -206,54 +206,56 @@ class HomeBodyState extends State<HomeBody> {
                 //       //     .items.length
                 //       ),
                 // )),
-                Visibility(
-                    visible: state.status == LoadingStatus.success &&
-                        state.repositoryList != null,
-                    child: Expanded(
-                      child: ListView.separated(
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              width: double.infinity,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF2F2F2),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: ListTile(
-                                leading: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.3,
-                                  child: Text(
-                                    state.repositoryList![index].name,
-                                    style: kItemTextStyle,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                if (state.repositoryList != null)
+                  Visibility(
+                      visible: state.status == LoadingStatus.success,
+                      child: Expanded(
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                width: double.infinity,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF2F2F2),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: ListTile(
+                                  leading: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.3,
+                                    child: Text(
+                                      state.repositoryList![index].name,
+                                      style: kItemTextStyle,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  trailing: InkWell(
+                                    onTap: () {
+                                      context.read<HomeBloc>().add(
+                                          ToggleFavoriteEvent(index: index));
+                                    },
+                                    child: state
+                                            .repositoryList![index].isFavorite!
+                                        ? SvgPicture.asset(
+                                            "assets/icons/favorite.svg")
+                                        : SvgPicture.asset(
+                                            "assets/icons/favorite_active.svg"),
                                   ),
                                 ),
-                                trailing: InkWell(
-                                  onTap: () {
-                                    // controller.updateSearhListFavoriteStatus(index);
-                                  },
-                                  child:
-                                      // controller.data.value.items[index].isFavorite!
-                                      //     ? SvgPicture.asset(
-                                      //         "assets/icons/favorite.svg")
-                                      SvgPicture.asset(
-                                          "assets/icons/favorite_active.svg"),
-                                ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(
-                              height: 10,
-                            );
-                          },
-                          itemCount: state.repositoryList!.length
-                          // controller.data.value.items.length
-                          ),
-                    )),
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(
+                                height: 10,
+                              );
+                            },
+                            itemCount: state.repositoryList!.length
+                            // controller.data.value.items.length
+                            ),
+                      )),
                 // Visibility(
                 //     // visible: controller.loadingState.value == "start" &&
                 //     //     controller.getStorageService.listHistorySearch.value.items

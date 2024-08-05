@@ -20,7 +20,7 @@ class HomeModel with _$HomeModel {
   const factory HomeModel({
     required int id,
     required String name,
-    @Default(false) bool? isFavorite,
+    @Default(false) bool isFavorite,
   }) = _HomeModel;
 
   factory HomeModel.fromJson(Map<String, Object?> json) =>

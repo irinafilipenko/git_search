@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/data/models/home_model.dart';
 import 'package:git_search/data/repositories/home_repository.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_state.dart';
@@ -12,6 +13,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({required this.homeRepository}) : super(const HomeState()) {
     on<HomeRequestedEvent>(_onHomeRequested);
     on<ChangeSearchTextEvent>(_onChangeSearchText);
+    on<ToggleFavoriteEvent>(_onToggleFavorite);
   }
 
   void _onChangeSearchText(
@@ -39,19 +41,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  // bool _validateEmail(String email) {
-  //   final emailRegex = RegExp(
-  //       r"^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]{1,10}@(?:(?!.*--)[a-zA-Z0-9-]{1,10}(?<!-))(?:\.(?:[a-zA-Z0-9-]{2,10}))+");
-  //   return email.length >= 6 &&
-  //       email.length <= 30 &&
-  //       emailRegex.hasMatch(email);
-  // }
-  //
-  // bool _validatePassword(String password) {
-  //   final passwordRegex =
-  //   RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,10}$');
-  //   return password.length >= 6 &&
-  //       password.length <= 10 &&
-  //       passwordRegex.hasMatch(password);
-  // }
+  void _onToggleFavorite(ToggleFavoriteEvent event, Emitter<HomeState> emit) {
+    final updatedModel = state.repositoryList![event.index].copyWith(
+      isFavorite: !state.repositoryList![event.index].isFavorite,
+    );
+
+    final updatedList = List<HomeModel>.from(state.repositoryList!);
+    updatedList[event.index] = updatedModel;
+
+    emit(state.copyWith(repositoryList: updatedList));
+  }
 }
