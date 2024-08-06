@@ -34,9 +34,13 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   void _onDeleteFavorite(
       DeleteFavoriteEvent event, Emitter<FavoriteState> emit) async {
-    final updatedList = List<HomeModel>.from(state.favoriteList!);
-    updatedList.removeAt(event.index);
-    emit(state.copyWith(favoriteList: updatedList));
-    await localDataStorage.deleteRepositoriesToCache(updatedList);
+    if (state.favoriteList == null) {
+      return;
+    } else {
+      final updatedList = List<HomeModel>.from(state.favoriteList!);
+      updatedList.removeAt(event.index);
+      emit(state.copyWith(favoriteList: updatedList));
+      await localDataStorage.deleteRepositoriesToCache(updatedList);
+    }
   }
 }

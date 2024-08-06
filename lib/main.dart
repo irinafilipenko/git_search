@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:git_search/data/routers.dart';
+import 'package:git_search/presentation/routes/routes.dart';
 import 'package:git_search/presentation/di/injector.dart';
 import 'package:git_search/presentation/di/modules/service_module.dart';
 import 'package:git_search/presentation/di/modules/bloc_module.dart';

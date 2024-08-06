@@ -4,11 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:git_search/data/loading_status.dart';
-import 'package:git_search/presentation/components/custom_card.dart';
+import 'package:git_search/presentation/widgetes/custom_card.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
 import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
-import 'package:git_search/presentation/screens/home/bloc/home_state.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -20,247 +19,228 @@ class HomeBodyState extends State<HomeBody> {
   final TextEditingController _textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeBloc, HomeState>(
-      listener: (context, state) {
-        // зачем нужен листнер? для выполнения каких то функций?
-
-        switch (state.status) {
-          case LoadingStatus.success:
-            break;
-
-          case LoadingStatus.failure:
-            break;
-
-          case LoadingStatus.loading:
-            break;
-
-          case LoadingStatus.initial:
-            break;
-        }
-      },
-      child: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF2F2F2),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: TextField(
-                    controller: _textController,
-                    onSubmitted: (value) {
-                      context
-                          .read<HomeBloc>()
-                          .add(HomeRequestedEvent(searchText: value));
-                    },
-                    onChanged: (value) {
-                      context
-                          .read<HomeBloc>()
-                          .add(ChangeSearchTextEvent(searchText: value));
-                    },
-                    cursorColor: kMainAppColor,
-                    cursorWidth: 1,
-                    maxLines: 1,
-                    style: kItemTextStyle,
-                    decoration: InputDecoration(
-                      suffixIcon: _textController.text.isNotEmpty
-                          ? InkWell(
-                              onTap: () {
-                                _textController.clear();
-                              },
-                              child: SvgPicture.asset(
-                                'assets/icons/close.svg',
-                                fit: BoxFit.scaleDown,
-                              ))
-                          : null,
-                      prefixIcon: InkWell(
+    final (:status, :list) = context.select((HomeBloc bloc) {
+      return (
+        status: bloc.state.status,
+        list: bloc.state.repositoryList,
+      );
+    });
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF2F2F2),
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: TextField(
+              controller: _textController,
+              onSubmitted: (value) {
+                context
+                    .read<HomeBloc>()
+                    .add(HomeRequestedEvent(searchText: value));
+              },
+              onChanged: (value) {
+                context
+                    .read<HomeBloc>()
+                    .add(ChangeSearchTextEvent(searchText: value));
+              },
+              cursorColor: kMainAppColor,
+              cursorWidth: 1,
+              maxLines: 1,
+              style: kItemTextStyle,
+              decoration: InputDecoration(
+                suffixIcon: _textController.text.isNotEmpty
+                    ? InkWell(
                         onTap: () {
-                          // controller.onSearchChanged(controller.inputText.value);
+                          _textController.clear();
                         },
                         child: SvgPicture.asset(
-                          'assets/icons/search.svg',
+                          'assets/icons/close.svg',
                           fit: BoxFit.scaleDown,
-                        ),
-                      ),
-                      hintText: AppStrings.hintTextField,
-                      hintStyle: kPlaceholderTextStyle,
-                      isCollapsed: true,
-                      contentPadding:
-                          const EdgeInsets.only(top: 16, bottom: 16, right: 16),
-                      fillColor: kMainAppColor,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: kMainAppColor, width: 2),
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide.none),
-                      border: const UnderlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      errorBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedErrorBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
+                        ))
+                    : null,
+                prefixIcon: InkWell(
+                  onTap: () {
+                    // controller.onSearchChanged(controller.inputText.value);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/icons/search.svg',
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
+                hintText: AppStrings.hintTextField,
+                hintStyle: kPlaceholderTextStyle,
+                isCollapsed: true,
+                contentPadding:
+                    const EdgeInsets.only(top: 16, bottom: 16, right: 16),
+                fillColor: kMainAppColor,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: kMainAppColor, width: 2),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-
-                Visibility(
-                  visible: state.status == LoadingStatus.success,
-                  child: const Text(AppStrings.foundString,
-                      style: TextStyle(
-                          color: kMainAppColor,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16)),
+                enabledBorder:
+                    const UnderlineInputBorder(borderSide: BorderSide.none),
+                border: const UnderlineInputBorder(
+                  borderSide: BorderSide.none,
                 ),
-                const SizedBox(
-                  height: 20,
+                errorBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide.none,
                 ),
-                Visibility(
-                    visible: state.status == LoadingStatus.loading,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CupertinoActivityIndicator(),
-                      ],
-                    )),
-
-                if (state.repositoryList != null)
-                  Visibility(
-                      visible: state.status == LoadingStatus.success,
-                      child: Expanded(
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              final item = state.repositoryList![index];
-                              return CustomCard(
-                                item: item,
-                                index: index,
-                                onTap: () {
-                                  context
-                                      .read<HomeBloc>()
-                                      .add(ToggleFavoriteEvent(index: index));
-                                },
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(
-                                height: 10,
-                              );
-                            },
-                            itemCount: state.repositoryList!.length
-                            // controller.data.value.items.length
-                            ),
-                      )),
-
-                Visibility(
-                    visible: state.repositoryList == null,
-                    child: Expanded(
-                      child: Center(
-                          child: Text(AppStrings.homeEmptyListAlert,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              style: kPlaceholderScreenTextStyle)),
-                    )),
-                // Visibility(
-                //     // visible: controller.loadingState.value == "clearInput",
-                //     child: Container()),
-                // Visibility(
-                //   // visible: controller.loadingState.value == "start" ||
-                //   //     controller.loadingState.value == "history",
-                //   child: const Text("Search History",
-                //       style: TextStyle(
-                //           color: kMainAppColor,
-                //           fontFamily: 'Raleway',
-                //           fontWeight: FontWeight.w600,
-                //           fontSize: 16)),
-                // ),
-                // Visibility(
-                //     // visible: controller.loadingState.value == "isEmpty" &&
-                //     //     controller.data.value.items.isEmpty,
-                //     child: Expanded(
-                //   child: Center(
-                //       child: Text(
-                //           "Nothing was find for your search.\n Please check the spelling",
-                //           textAlign: TextAlign.center,
-                //           overflow: TextOverflow.ellipsis,
-                //           style: kPlaceholderScreenTextStyle)),
-                // )),
-                // Visibility(
-                //     // visible: controller.loadingState.value == "history",
-                //     child: Expanded(
-                //   child: ListView.separated(
-                //       shrinkWrap: true,
-                //       itemBuilder: (BuildContext context, int index) {
-                //         return Container(
-                //           width: double.infinity,
-                //           height: 55,
-                //           decoration: BoxDecoration(
-                //             color: const Color(0xFFF2F2F2),
-                //             borderRadius: BorderRadius.circular(10.0),
-                //           ),
-                //           child: ListTile(
-                //             leading: SizedBox(
-                //               width: MediaQuery.of(context).size.width / 1.3,
-                //               child: Text(
-                //                 "",
-                //                 // controller.getStorageService.listHistorySearch
-                //                 //     .value.items[index].name,
-                //                 style: kItemTextStyle,
-                //                 maxLines: 1,
-                //                 overflow: TextOverflow.ellipsis,
-                //               ),
-                //             ),
-                //             trailing: InkWell(
-                //               onTap: () {
-                //                 // controller
-                //                 //     .updateHistoryListFavoriteStatus(index);
-                //               },
-                //               child:
-                //                   // controller
-                //                   //         .getStorageService
-                //                   //         .listHistorySearch
-                //                   //         .value
-                //                   //         .items[index]
-                //                   //         .isFavorite!
-                //                   // SvgPicture.asset("assets/icons/favorite.svg")
-                //                   SvgPicture.asset(
-                //                       "assets/icons/favorite_active.svg"),
-                //             ),
-                //           ),
-                //         );
-                //       },
-                //       separatorBuilder: (BuildContext context, int index) {
-                //         return const SizedBox(
-                //           height: 10,
-                //         );
-                //       },
-                //       itemCount:
-                //           // controller.getStorageService.listHistorySearch
-                //           //             .value.items.length >
-                //           15
-                //       // ? 15
-                //       // : controller.getStorageService.listHistorySearch.value
-                //       //     .items.length
-                //       ),
-                // )),
-              ],
+                focusedErrorBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+              ),
             ),
-          );
-        },
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+
+          Visibility(
+            visible: status == LoadingStatus.success,
+            child: const Text(AppStrings.foundString,
+                style: TextStyle(
+                    color: kMainAppColor,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16)),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Visibility(
+              visible: status == LoadingStatus.loading,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CupertinoActivityIndicator(),
+                ],
+              )),
+
+          if (list != null)
+            Visibility(
+                visible: status == LoadingStatus.success,
+                child: Expanded(
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = list[index];
+                        return CustomCard(
+                          item: item,
+                          index: index,
+                          onTap: () {
+                            context
+                                .read<HomeBloc>()
+                                .add(ToggleFavoriteEvent(index: index));
+                          },
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(
+                          height: 10,
+                        );
+                      },
+                      itemCount: list.length
+                      // controller.data.value.items.length
+                      ),
+                )),
+
+          Visibility(
+              visible: list == null,
+              child: Expanded(
+                child: Center(
+                    child: Text(AppStrings.homeEmptyListAlert,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: kPlaceholderScreenTextStyle)),
+              )),
+          // Visibility(
+          //     // visible: controller.loadingState.value == "clearInput",
+          //     child: Container()),
+          // Visibility(
+          //   // visible: controller.loadingState.value == "start" ||
+          //   //     controller.loadingState.value == "history",
+          //   child: const Text("Search History",
+          //       style: TextStyle(
+          //           color: kMainAppColor,
+          //           fontFamily: 'Raleway',
+          //           fontWeight: FontWeight.w600,
+          //           fontSize: 16)),
+          // ),
+          // Visibility(
+          //     // visible: controller.loadingState.value == "isEmpty" &&
+          //     //     controller.data.value.items.isEmpty,
+          //     child: Expanded(
+          //   child: Center(
+          //       child: Text(
+          //           "Nothing was find for your search.\n Please check the spelling",
+          //           textAlign: TextAlign.center,
+          //           overflow: TextOverflow.ellipsis,
+          //           style: kPlaceholderScreenTextStyle)),
+          // )),
+          // Visibility(
+          //     // visible: controller.loadingState.value == "history",
+          //     child: Expanded(
+          //   child: ListView.separated(
+          //       shrinkWrap: true,
+          //       itemBuilder: (BuildContext context, int index) {
+          //         return Container(
+          //           width: double.infinity,
+          //           height: 55,
+          //           decoration: BoxDecoration(
+          //             color: const Color(0xFFF2F2F2),
+          //             borderRadius: BorderRadius.circular(10.0),
+          //           ),
+          //           child: ListTile(
+          //             leading: SizedBox(
+          //               width: MediaQuery.of(context).size.width / 1.3,
+          //               child: Text(
+          //                 "",
+          //                 // controller.getStorageService.listHistorySearch
+          //                 //     .value.items[index].name,
+          //                 style: kItemTextStyle,
+          //                 maxLines: 1,
+          //                 overflow: TextOverflow.ellipsis,
+          //               ),
+          //             ),
+          //             trailing: InkWell(
+          //               onTap: () {
+          //                 // controller
+          //                 //     .updateHistoryListFavoriteStatus(index);
+          //               },
+          //               child:
+          //                   // controller
+          //                   //         .getStorageService
+          //                   //         .listHistorySearch
+          //                   //         .value
+          //                   //         .items[index]
+          //                   //         .isFavorite!
+          //                   // SvgPicture.asset("assets/icons/favorite.svg")
+          //                   SvgPicture.asset(
+          //                       "assets/icons/favorite_active.svg"),
+          //             ),
+          //           ),
+          //         );
+          //       },
+          //       separatorBuilder: (BuildContext context, int index) {
+          //         return const SizedBox(
+          //           height: 10,
+          //         );
+          //       },
+          //       itemCount:
+          //           // controller.getStorageService.listHistorySearch
+          //           //             .value.items.length >
+          //           15
+          //       // ? 15
+          //       // : controller.getStorageService.listHistorySearch.value
+          //       //     .items.length
+          //       ),
+          // )),
+        ],
       ),
     );
   }
