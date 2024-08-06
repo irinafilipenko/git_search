@@ -2,6 +2,8 @@ class AppStrings {
   //assets
   static const String isFavoriteStar = "assets/icons/favorite_active.svg";
   static const String isNotFavoriteStar = "assets/icons/favorite.svg";
+  static const String favoriteBackButton = "assets/icons/icon_button.svg";
+
   // login_screen
   static const String passwordLabelText = 'Password';
   static const String passwordHintText = 'Enter your password';
