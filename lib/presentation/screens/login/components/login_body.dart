@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
+import 'package:git_search/presentation/routes/app_routes_stings.dart';
 
 import 'package:git_search/presentation/screens/login/bloc/login_bloc.dart';
 import 'package:git_search/presentation/screens/login/bloc/login_state.dart';
@@ -77,25 +78,20 @@ class LoginBodyState extends State<LoginBody> {
           case LoadingStatus.success:
             Timer(const Duration(microseconds: 10), () {
               _resetFields();
-              context.go('/home');
-              // Navigator.pushReplacementNamed(context, '/home');
+              context.go(AppRoutesStings.homePath);
             });
             break;
-
           case LoadingStatus.failure:
             context.read<LoginBloc>().add(
                 ResetFieldsEvent(isEmailValid: true, isPasswordlValid: true));
-
             if (state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 customSnackBar(message: state.errorMessage!, context: context),
               );
             }
             break;
-
           case LoadingStatus.loading:
             break;
-
           case LoadingStatus.initial:
             break;
         }

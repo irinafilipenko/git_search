@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:git_search/data/loading_status.dart';
 import 'package:git_search/presentation/widgetes/custom_card.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
@@ -59,7 +58,7 @@ class HomeBodyState extends State<HomeBody> {
                           _textController.clear();
                         },
                         child: SvgPicture.asset(
-                          'assets/icons/close.svg',
+                          AppStrings.homeDeleteTextIcon,
                           fit: BoxFit.scaleDown,
                         ))
                     : null,
@@ -68,7 +67,7 @@ class HomeBodyState extends State<HomeBody> {
                     // controller.onSearchChanged(controller.inputText.value);
                   },
                   child: SvgPicture.asset(
-                    'assets/icons/search.svg',
+                    AppStrings.homeSearchTextIcon,
                     fit: BoxFit.scaleDown,
                   ),
                 ),
@@ -105,7 +104,7 @@ class HomeBodyState extends State<HomeBody> {
             child: const Text(AppStrings.foundString,
                 style: TextStyle(
                     color: kMainAppColor,
-                    fontFamily: 'Raleway',
+                    fontFamily: AppStrings.fontFamily,
                     fontWeight: FontWeight.w600,
                     fontSize: 16)),
           ),

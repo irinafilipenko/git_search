@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
+import 'package:git_search/presentation/routes/app_routes_stings.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_bloc.dart';
 import 'package:git_search/presentation/screens/splash/bloc/splash_state.dart';
 import 'package:go_router/go_router.dart';
@@ -32,16 +34,16 @@ class SplashBodyState extends State<SplashBody> {
           return;
         } else if (state.status == LoadingStatus.success &&
             state.user != null) {
-          context.go('/home');
+          context.go(AppRoutesStings.homePath);
           // Navigator.pushReplacementNamed(context, '/home');
         } else if (state.status == LoadingStatus.success &&
             state.user == null) {
-          context.go('/login');
+          context.go(AppRoutesStings.loginPath);
           // Navigator.pushReplacementNamed(context, '/login');
         }
       },
       child: Image.asset(
-        'assets/images/loading_splash.png',
+        AppStrings.loadingSplashImg,
       ),
     );
   }

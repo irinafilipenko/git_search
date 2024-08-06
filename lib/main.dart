@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/routes/routes.dart';
 import 'package:git_search/presentation/di/injector.dart';
 import 'package:git_search/presentation/di/modules/service_module.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Git search',
+      title: AppStrings.nameProject,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       routerConfig: router,

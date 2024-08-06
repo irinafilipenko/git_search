@@ -96,7 +96,9 @@ class CustomTextField extends StatelessWidget {
           Text(
             '$labelText ${AppStrings.isIncorrectText}',
             style: const TextStyle(
-                fontFamily: "Roboto", fontSize: 12, color: Color(0xFFBA1A1A)),
+                fontFamily: AppStrings.fontFamily,
+                fontSize: 12,
+                color: Color(0xFFBA1A1A)),
           ),
       ],
     );

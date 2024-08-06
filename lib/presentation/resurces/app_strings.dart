@@ -3,6 +3,15 @@ class AppStrings {
   static const String isFavoriteStar = "assets/icons/favorite_active.svg";
   static const String isNotFavoriteStar = "assets/icons/favorite.svg";
   static const String favoriteBackButton = "assets/icons/icon_button.svg";
+  static const String homeDeleteTextIcon = 'assets/icons/close.svg';
+  static const String homeSearchTextIcon = 'assets/icons/search.svg';
+  static const String loadingSplashImg = 'assets/images/loading_splash.png';
+
+  //settings
+  static const String fontFamily = 'Raleway';
+
+  //main
+  static const String nameProject = 'Git search';
 
   // login_screen
   static const String passwordLabelText = 'Password';
