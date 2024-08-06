@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:git_search/data/models/home_model.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
 
 class CustomCard extends StatelessWidget {
-  final HomeModel item;
+  final String name;
+  final bool isFavorite;
   final int index;
   final VoidCallback onTap;
 
   const CustomCard(
-      {Key? key, required this.item, required this.index, required this.onTap})
+      {Key? key,
+      required this.isFavorite,
+      required this.name,
+      required this.index,
+      required this.onTap})
       : super(key: key);
 
   @override
@@ -25,7 +29,7 @@ class CustomCard extends StatelessWidget {
         leading: SizedBox(
           width: MediaQuery.of(context).size.width / 1.3,
           child: Text(
-            item.name,
+            name,
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -37,7 +41,7 @@ class CustomCard extends StatelessWidget {
         ),
         trailing: InkWell(
           onTap: onTap,
-          child: item.isFavorite
+          child: isFavorite
               ? SvgPicture.asset(AppStrings.isNotFavoriteStar)
               : SvgPicture.asset(AppStrings.isFavoriteStar),
         ),

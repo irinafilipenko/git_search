@@ -38,7 +38,8 @@ class FavoriteBody extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final item = favoriteList[index];
                         return CustomCard(
-                          item: item,
+                          name: item.name,
+                          isFavorite: item.isFavorite,
                           index: index,
                           onTap: () {
                             context
