@@ -76,8 +76,7 @@ class LoginBodyState extends State<LoginBody> {
       listener: (context, state) {
         switch (state.status) {
           case LoadingStatus.success:
-            print(context);
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).clearSnackBars();
             Timer(const Duration(microseconds: 10), () {
               _resetFields();
               context.go(AppRoutesStings.homePath);
