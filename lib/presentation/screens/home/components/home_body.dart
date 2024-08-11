@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:git_search/data/loading_status.dart';
+import 'package:git_search/presentation/screens/home/bloc/home_state.dart';
 import 'package:git_search/presentation/widgetes/custom_card.dart';
 import 'package:git_search/presentation/resurces/app_strings.dart';
 import 'package:git_search/presentation/resurces/constants.dart';
@@ -10,12 +11,14 @@ import 'package:git_search/presentation/screens/home/bloc/home_bloc.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
+
   @override
   HomeBodyState createState() => HomeBodyState();
 }
 
 class HomeBodyState extends State<HomeBody> {
   final TextEditingController _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final (:status, :list) = context.select((HomeBloc bloc) {
@@ -24,6 +27,7 @@ class HomeBodyState extends State<HomeBody> {
         list: bloc.state.repositoryList,
       );
     });
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
